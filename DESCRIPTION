@@ -36,7 +36,7 @@ Imports:
     ape,
     hillR,
     gridExtra
-    
+    devtools
 
 
    

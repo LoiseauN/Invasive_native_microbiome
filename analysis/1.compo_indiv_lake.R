@@ -1,5 +1,4 @@
 #======== PROJECT COM2LIFE ========
-## Stackbarplots for species
 
 
 # Load physeq object
@@ -64,7 +63,7 @@ sample_data(physeq_filtered) <- sample_data
 path_to_my_object = here::here("data","mon_objet_physeq_filtered.rds")
 saveRDS(physeq_filtered, file = path_to_my_object)
 
-metadata <- sample.data.frame(physeq_filtered)
+metadata <- phyloseqCompanion::sample.data.frame(physeq_filtered)
 
 # ====== PHYLUM LEVEL =======
 # Most abundant phyla
