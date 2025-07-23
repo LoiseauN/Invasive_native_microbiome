@@ -3,15 +3,12 @@
 ## load the object and plot the beta diversity 
 
 # load objects
-beta_diss <- readRDS(here::here("Data",
+beta_diss <- readRDS(here::here("data",
                                       "beta_diss.rds"))
-metadata <- readRDS(here::here("Data",
+metadata <- readRDS(here::here("data",
                                       "metadata.rds"))
 
-## load libraries
-library(ggpubr)
-library(ggplot2)
-library(cowplot)
+
 
 #parameters for boxplot
 species_list <- c("LEP", "PER")
@@ -119,7 +116,7 @@ indice_var <- "taxo_q0"
 # Generate the combined plot for taxonomic q0 diversity
 boxplot_diss_taxo_q0 <- diversity_plots(beta_diss, species_list, species_labels, indice_var, sp_level, reg_levels, reg_comb_var, custom_order, my_palette, region_colors)
 
-path_to_my_object = here::here("Figures","hill", "boxplot_diss_taxo_q0.png")
+path_to_my_object = here::here("figures","hill", "boxplot_diss_taxo_q0.png")
 ggsave(filename = path_to_my_object, plot = boxplot_diss_taxo_q0, device = "png")
 
 # =================== TAXO_q1 ===================
@@ -127,7 +124,7 @@ indice_var <- "taxo_q1"
 # Generate the combined plot for taxonomic q1 diversity
 boxplot_diss_taxo_q1 <- diversity_plots(beta_diss, species_list, species_labels, indice_var, sp_level, reg_levels, reg_comb_var, custom_order, my_palette, region_colors)
 
-path_to_my_object = here::here("Figures","hill", "boxplot_diss_taxo_q1.png")
+path_to_my_object = here::here("figures","hill", "boxplot_diss_taxo_q1.png")
 ggsave(filename = path_to_my_object, plot = boxplot_diss_taxo_q1, device = "png")
 
 # =================== PHYLO_Q0 ===================
@@ -135,7 +132,7 @@ indice_var <- "phylo_q0"
 # Generate the combined plot for phylogenetic q0 diversity
 boxplot_diss_phylo_q0 <- diversity_plots(beta_diss, species_list, species_labels, indice_var, sp_level, reg_levels, reg_comb_var, custom_order, my_palette, region_colors)
 
-path_to_my_object = here::here("Figures","hill", "boxplot_diss_phylo_q0.png")
+path_to_my_object = here::here("figures","hill", "boxplot_diss_phylo_q0.png")
 ggsave(filename = path_to_my_object, plot = boxplot_diss_phylo_q0, device = "png")
 
 # =================== PHYLO_Q1 ===================
@@ -143,7 +140,7 @@ indice_var <- "phylo_q1"
 # Generate the combined plot for phylogenetic q1 diversity
 boxplot_diss_phylo_q1 <- diversity_plots(beta_diss, species_list, species_labels, indice_var, sp_level, reg_levels, reg_comb_var, custom_order, my_palette, region_colors)
 
-path_to_my_object = here::here("Figures","hill", "boxplot_diss_phylo_q1.png")
+path_to_my_object = here::here("figures","hill", "boxplot_diss_phylo_q1.png")
 ggsave(filename = path_to_my_object, plot = boxplot_diss_phylo_q1, device = "png")
 
 
@@ -217,5 +214,5 @@ boxplot_diss_inter_sp <- cowplot::plot_grid(
   rel_heights = c(0.15, 20)  
 )
 
-path_to_my_object = here::here("Figures","hill", "boxplot_diss_inter_sp.png")
+path_to_my_object = here::here("figures","hill", "boxplot_diss_inter_sp.png")
 ggsave(filename = path_to_my_object, plot = boxplot_diss_inter_sp, device = "png")

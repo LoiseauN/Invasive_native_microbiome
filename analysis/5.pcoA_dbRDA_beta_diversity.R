@@ -4,24 +4,18 @@
 
 ## =============== PCOA and DbRDA ================== ##
 # Load objects 
-physeq_filtered <- readRDS(here::here("Data",
+physeq_filtered <- readRDS(here::here("data",
                              "mon_objet_physeq_filtered.rds"))
-phylo_q0_beta <- readRDS(here::here("Data",
+phylo_q0_beta <- readRDS(here::here("data",
                                       "phylo_q0_beta.rds"))
-phylo_q1_beta <- readRDS(here::here("Data",
+phylo_q1_beta <- readRDS(here::here("data",
                                     "phylo_q1_beta.rds"))
-taxo_q0_beta <- readRDS(here::here("Data",
+taxo_q0_beta <- readRDS(here::here("data",
                                     "tax_q0_beta.rds"))
-taxo_q1_beta <- readRDS(here::here("Data",
+taxo_q1_beta <- readRDS(here::here("data",
                                     "tax_q1_beta.rds"))
 
-# library
-library(hillR)
-library(tidyverse)
-library(ape)
-library(gridExtra)
-library(ggpubr)
-library(ggplot2)
+
 
 # transform the dissimilarity indice in matrix
 taxo_q0_beta <- as.data.frame(taxo_q0_beta)
@@ -135,7 +129,7 @@ pcoa_diss <- ggarrange(plot_taxo_q0_pcoa, plot_taxo_q1_pcoa, plot_phylo_q0_pcoa,
                        ncol = 2, nrow = 3, 
                        common.legend = TRUE, legend = "right")
 
-path_to_my_object = here::here("Figures","hill", "pcoa_diss_all.png")
+path_to_my_object = here::here("figures","hill", "pcoa_diss_all.png")
 ggsave(filename = path_to_my_object, plot = pcoa_diss, device = "png")
 
 
@@ -175,7 +169,7 @@ colors <-  c(
 #create a physeq_per for only perca fluviatilis
 physeq_per <- subset_samples(physeq_filtered, !(grepl("GAR", sample_names(physeq_filtered))))
 # Save my phyloseq object 
-path_to_my_object = here::here("Data","mon_objet_physeq_per.rds")
+path_to_my_object = here::here("data","mon_objet_physeq_per.rds")
 saveRDS(physeq_per, file = path_to_my_object)
 
 metadata_per <- metadata[grep("PER", metadata$origin), ]
@@ -268,13 +262,13 @@ for (i in 1:nrow(phylo_q1_beta)) {
 
 
 # Save my phyloseq object 
-path_to_my_object = here::here("Data","matrix_phylo_q0_per.rds")
+path_to_my_object = here::here("data","matrix_phylo_q0_per.rds")
 saveRDS(phylo_q0_beta_matrix, file = path_to_my_object)
-path_to_my_object = here::here("Data","matrix_phylo_q1_per.rds")
+path_to_my_object = here::here("data","matrix_phylo_q1_per.rds")
 saveRDS(phylo_q1_beta_matrix, file = path_to_my_object)
-path_to_my_object = here::here("Data","matrix_taxo_q0_per.rds")
+path_to_my_object = here::here("data","matrix_taxo_q0_per.rds")
 saveRDS(tax_q0_beta_matrix, file = path_to_my_object)
-path_to_my_object = here::here("Data","matrix_taxo_q1_per.rds")
+path_to_my_object = here::here("data","matrix_taxo_q1_per.rds")
 saveRDS(tax_q1_beta_matrix, file = path_to_my_object)
 
 
@@ -340,7 +334,7 @@ dbRDA_per <- ggarrange(dbRDA_taxo_q0, dbRDA_taxo_q1, dbRDA_phylo_q0, dbRDA_phylo
                        ncol = 2, nrow = 2, 
                        common.legend = TRUE, legend = "right")
 
-path_to_my_object = here::here("Figures","hill", "dbRDA_per.png")
+path_to_my_object = here::here("figures","hill", "dbRDA_per.png")
 ggsave(filename = path_to_my_object, plot = dbRDA_per, device = "png")
 
 
@@ -348,7 +342,7 @@ ggsave(filename = path_to_my_object, plot = dbRDA_per, device = "png")
 #create a physeq_per for only perca fluviatilis
 physeq_lep <- subset_samples(physeq_filtered, !(grepl("PER", sample_names(physeq_filtered))))
 # Save my phyloseq object 
-path_to_my_object = here::here("Data","mon_objet_physeq_lep.rds")
+path_to_my_object = here::here("data","mon_objet_physeq_lep.rds")
 saveRDS(physeq_lep, file = path_to_my_object)
 
 metadata_lep <- metadata[grep("GAR", rownames(metadata)), ]
@@ -440,13 +434,13 @@ for (i in 1:nrow(phylo_q1_beta)) {
 }
 
 #Save
-path_to_my_object = here::here("Data","matrix_phylo_q0_lep.rds")
+path_to_my_object = here::here("data","matrix_phylo_q0_lep.rds")
 saveRDS(phylo_q0_beta_matrix, file = path_to_my_object)
-path_to_my_object = here::here("Data","matrix_phylo_q1_lep.rds")
+path_to_my_object = here::here("data","matrix_phylo_q1_lep.rds")
 saveRDS(phylo_q1_beta_matrix, file = path_to_my_object)
-path_to_my_object = here::here("Data","matrix_taxo_q0_lep.rds")
+path_to_my_object = here::here("data","matrix_taxo_q0_lep.rds")
 saveRDS(tax_q0_beta_matrix, file = path_to_my_object)
-path_to_my_object = here::here("Data","matrix_taxo_q1_lep.rds")
+path_to_my_object = here::here("data","matrix_taxo_q1_lep.rds")
 saveRDS(tax_q1_beta_matrix, file = path_to_my_object)
 
 # ========== Perform dbRDA for LEPOMIS GIBBOSUS ===============
@@ -511,5 +505,5 @@ dbRDA_lep <- ggarrange(dbRDA_taxo_q0, dbRDA_taxo_q1, dbRDA_phylo_q0, dbRDA_phylo
                        ncol = 2, nrow = 2, 
                        common.legend = TRUE, legend = "right")
 
-path_to_my_object = here::here("Figures","hill", "dbRDA_lep.png")
+path_to_my_object = here::here("figures","hill", "dbRDA_lep.png")
 ggsave(filename = path_to_my_object, plot = dbRDA_lep, device = "png")

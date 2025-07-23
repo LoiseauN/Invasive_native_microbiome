@@ -1,8 +1,5 @@
 #### Create a map with the package Leaflet ####
 
-# Load the package
-library(leaflet)
-library(htmlwidgets)
 
 # Create the data frame
 points <- data.frame(

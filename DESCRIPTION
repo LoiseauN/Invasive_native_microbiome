@@ -1,0 +1,42 @@
+Package: mFD
+Title: A computation of functional spaces and functional indices
+Version: 1.0.0
+Authors@R: 
+    c(person("Alice", "Navarro", role = "aut",
+    email = "alice.navarro@hotmail.fr"),
+    person("Nicolas", "Loiseau", role = "aut",
+    email = "nicolas.loiseau@cnrs.fr"),
+  
+Description: Invasive and native lake fish species display different responses of their gut microbiota and metabolite compositions along a eutrophication gradient
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Imports: 
+    mFD
+    dplyr,
+    magrittr,
+    stringr,
+    leaflet,
+    htmlwidgets,
+    plyr,
+    utils,
+    ade4,
+    ggplot2,
+    ggpubr,
+    cowplot,
+    phyloseq,
+    phyloseqCompanion,
+    tidyverse,
+    spaa,
+    vegan,
+    pairwiseAdonis,
+    gdm,
+    ape,
+    hillR,
+    gridExtra
+    
+
+
+   

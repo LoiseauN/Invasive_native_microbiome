@@ -1,22 +1,18 @@
 #======== PROJECT COM2LIFE ========
 ## permanova on metabo beta diversity matrix to see if there is lake effect or species effect
 
-#library
-library(dplyr)
-library(spaa)
-library(vegan)
-library(pairwiseAdonis)
+
 
 # load data 
-tax_q0_matrix_per <- readRDS(here::here("Data",
+tax_q0_matrix_per <- readRDS(here::here("data",
                                         "tax_q0_beta_metabo_per.rds"))
-tax_q0_matrix_lep <- readRDS(here::here("Data",
+tax_q0_matrix_lep <- readRDS(here::here("data",
                                         "tax_q0_beta_metabo_lep.rds"))
-tax_q1_matrix_per <- readRDS(here::here("Data",
+tax_q1_matrix_per <- readRDS(here::here("data",
                                         "tax_q1_beta_metabo_per.rds"))
-tax_q1_matrix_lep <- readRDS(here::here("Data",
+tax_q1_matrix_lep <- readRDS(here::here("data",
                                         "tax_q1_beta_metabo_lep.rds"))
-metadata <- readRDS(here::here("Data",
+metadata <- readRDS(here::here("data",
                                "metadata.rds"))
 
 

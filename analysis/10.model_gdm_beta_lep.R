@@ -3,31 +3,28 @@
 ## First load the libraries and object. 
 ##### 4 models GDM by species, here we modelise 5 environmental varibales for Lepomis gibbosus
 
-# load libraries
-library(gdm)
-library(spaa)
 
 # Load objects
-physeq_lep <- readRDS(here::here("Data",
+physeq_lep <- readRDS(here::here("data",
                                  "mon_objet_physeq_lep.rds"))
 
-metadata <- readRDS(here::here("Data",
+metadata <- readRDS(here::here("data",
                                "metadata.rds"))
 
-phylo_q0_beta_matrix_lep <- readRDS(here::here("Data",
+phylo_q0_beta_matrix_lep <- readRDS(here::here("data",
                                            "matrix_phylo_q0_lep.rds"))
 
-phylo_q1_beta_matrix_lep <- readRDS(here::here("Data",
+phylo_q1_beta_matrix_lep <- readRDS(here::here("data",
                                            "matrix_phylo_q1_lep.rds"))
 
-tax_q0_beta_matrix_lep <- readRDS(here::here("Data",
+tax_q0_beta_matrix_lep <- readRDS(here::here("data",
                                          "matrix_taxo_q0_lep.rds"))
 
-tax_q1_beta_matrix_lep <- readRDS(here::here("Data",
+tax_q1_beta_matrix_lep <- readRDS(here::here("data",
                                          "matrix_taxo_q1_lep.rds"))
 
 ### GDM
-# -------------- EDIT DATA -------------------
+# -------------- EDIT data -------------------
 #keep only metadata with LEP samples
 metadata <- metadata[grepl("LEP", metadata$origin),]
 
@@ -69,11 +66,11 @@ tax_q0_beta_matrix <- cbind(site, tax_q0_beta_matrix_lep)
 rownames(metadata_filtered) <- gsub("\\-", ".", rownames(metadata_filtered))
 
 # edit data for gdm function
-gdmTab.dis <- formatsitepair(bioData= tax_q0_beta_matrix,
+gdmTab.dis <- formatsitepair(biodata= tax_q0_beta_matrix,
                              bioFormat=3, #diss matrix
                              XColumn="longitude",
                              YColumn="latitude",
-                             predData= metadata_filtered,
+                             preddata= metadata_filtered,
                              siteColumn="site")
 
 # apply gdm function
@@ -88,11 +85,11 @@ plot(gdm.1, plot.layout=c(3,3))
 tax_q1_beta_matrix <- cbind(site, tax_q1_beta_matrix_lep)
 
 # edit data for gdm function
-gdmTab.dis <- formatsitepair(bioData= tax_q1_beta_matrix,
+gdmTab.dis <- formatsitepair(biodata= tax_q1_beta_matrix,
                              bioFormat=3, #diss matrix
                              XColumn="longitude",
                              YColumn="latitude",
-                             predData= metadata_filtered,
+                             preddata= metadata_filtered,
                              siteColumn="site")
 
 # apply gdm function
@@ -107,11 +104,11 @@ plot(gdm.2, plot.layout=c(3,3))
 phylo_q0_beta_matrix <- cbind(site, phylo_q0_beta_matrix_lep)
 
 # edit for gdm function
-gdmTab.dis <- formatsitepair(bioData= phylo_q0_beta_matrix,
+gdmTab.dis <- formatsitepair(biodata= phylo_q0_beta_matrix,
                              bioFormat=3, #diss matrix
                              XColumn="longitude",
                              YColumn="latitude",
-                             predData= metadata_filtered,
+                             preddata= metadata_filtered,
                              siteColumn="site")
 
 # apply gdm function
@@ -126,11 +123,11 @@ plot(gdm.3, plot.layout=c(3,3))
 phylo_q1_beta_matrix <- cbind(site, phylo_q1_beta_matrix_lep)
 
 # edit for gdm function
-gdmTab.dis <- formatsitepair(bioData= phylo_q1_beta_matrix,
+gdmTab.dis <- formatsitepair(biodata= phylo_q1_beta_matrix,
                              bioFormat=3, #diss matrix
                              XColumn="longitude",
                              YColumn="latitude",
-                             predData= metadata_filtered,
+                             preddata= metadata_filtered,
                              siteColumn="site")
 
 # apply gdm function

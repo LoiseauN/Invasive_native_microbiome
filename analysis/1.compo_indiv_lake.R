@@ -1,15 +1,9 @@
 #======== PROJECT COM2LIFE ========
-## Stackbarplots for species, help of L.Ezzat 
+## Stackbarplots for species
 
-# Load libraries
-library(phyloseq)
-library(phyloseqCompanion)
-library(tidyverse)
-library(dplyr)
-library(ggplot2)
 
 # Load physeq object
-physeq <- readRDS(here::here("Data",
+physeq <- readRDS(here::here("data",
                                  "mon_objet_physeq_17_06.rds"))
 # Filter physeq to keep only samples of fish
 physeq_filtered <- subset_samples(physeq, !(grepl("BOI|JAB|VAI|SED|ADN", sample_names(physeq))))
@@ -67,7 +61,7 @@ if ("samples" %in% colnames(sample_data)) {
 sample_data(physeq_filtered) <- sample_data
 
 #Save
-path_to_my_object = here::here("Data","mon_objet_physeq_filtered.rds")
+path_to_my_object = here::here("data","mon_objet_physeq_filtered.rds")
 saveRDS(physeq_filtered, file = path_to_my_object)
 
 metadata <- sample.data.frame(physeq_filtered)
@@ -124,7 +118,7 @@ barplot_for_sp <- ggplot(data = data_sp_mod, aes(x = Sample, y = Abundance, fill
 
 barplot_for_sp
 
-path_to_my_object = here::here("Figures", "barplot_for_sp.png")
+path_to_my_object = here::here("figures", "barplot_for_sp.png")
 ggplot2::ggsave(filename = path_to_my_object, plot = barplot_for_sp, device = "png")
 
 #========== GENUS LEVEL =======
@@ -179,5 +173,5 @@ barplot_for_sp_genus <- ggplot(data = data_sp_mod, aes(x = Sample, y = Abundance
 
 barplot_for_sp_genus
 
-path_to_my_object = here::here("Figures", "barplot_for_sp_genus.png")
+path_to_my_object = here::here("figures", "barplot_for_sp_genus.png")
 ggplot2::ggsave(filename = path_to_my_object, plot = barplot_for_sp_genus, device = "png")

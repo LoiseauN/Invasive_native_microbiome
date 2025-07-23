@@ -3,12 +3,12 @@
 ## load the object and plot the alpha diversity
 
 #create a directory
-dir.create("Figures/hill", recursive = TRUE)
+dir.create("figures/hill", recursive = TRUE)
 
 # Load my physeq object 
-physeq_alpha <- readRDS(here::here("Data",
+physeq_alpha <- readRDS(here::here("data",
                                       "mon_objet_physeq_alpha.rds"))
-metadata_alpha <- readRDS(here::here("Data",
+metadata_alpha <- readRDS(here::here("data",
                                    "metadata_alpha.rds"))
 
 # Alpha diversity lakes and sp jitter
@@ -69,7 +69,7 @@ plot_alpha_lakes <- function(data, lake_var, diversity_vars, plot_titles, boxplo
 # Generate the combined plot
 alpha_plot_lake <- plot_alpha_lakes(metadata_alpha, lake_var, diversity_vars, plot_titles, boxplot_colors, jitter_colors, jitter_labels)
 
-path_to_my_object = here::here("Figures","hill", "alpha_plot_lake.png")
+path_to_my_object = here::here("figures","hill", "alpha_plot_lake.png")
 ggsave(filename = path_to_my_object, plot = alpha_plot_lake, device = "png")
 
 
@@ -118,7 +118,7 @@ species_alpha_plots <- function(data, species_var, diversity_vars, plot_titles, 
 
 alpha_plot_species <- species_alpha_plots(metadata_alpha, species_var, diversity_vars_species, plot_titles_species, fill_colors_species)
 
-path_to_my_object = here::here("Figures","hill", "alpha_plot_species.png")
+path_to_my_object = here::here("figures","hill", "alpha_plot_species.png")
 ggsave(filename = path_to_my_object, plot = alpha_plot_species, device = "png")
 
 
@@ -222,5 +222,5 @@ alpha_pvalue_sp <- grid.arrange(
   ncol = 2,
   widths = c(1, 0.2))
 
-path_to_my_object = here::here("Figures","hill", "alpha_pvalue_sp.png")
+path_to_my_object = here::here("figures","hill", "alpha_pvalue_sp.png")
 ggsave(filename = path_to_my_object, plot = alpha_pvalue_sp, device = "png")

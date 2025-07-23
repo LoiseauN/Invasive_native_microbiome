@@ -7,26 +7,26 @@
 library(gdm)
 
 # Load objects
-physeq_per <- readRDS(here::here("Data",
+physeq_per <- readRDS(here::here("data",
                                       "mon_objet_physeq_per.rds"))
 
-metadata <- readRDS(here::here("Data",
+metadata <- readRDS(here::here("data",
                                "metadata.rds"))
 
-phylo_q0_beta_matrix_per <- readRDS(here::here("Data",
+phylo_q0_beta_matrix_per <- readRDS(here::here("data",
                                  "matrix_phylo_q0_per.rds"))
 
-phylo_q1_beta_matrix_per <- readRDS(here::here("Data",
+phylo_q1_beta_matrix_per <- readRDS(here::here("data",
                                            "matrix_phylo_q1_per.rds"))
 
-tax_q0_beta_matrix_per <- readRDS(here::here("Data",
+tax_q0_beta_matrix_per <- readRDS(here::here("data",
                                            "matrix_taxo_q0_per.rds"))
 
-tax_q1_beta_matrix_per <- readRDS(here::here("Data",
+tax_q1_beta_matrix_per <- readRDS(here::here("data",
                                          "matrix_taxo_q1_per.rds"))
 
 ### GDM
-# -------------- EDIT DATA -------------------
+# -------------- EDIT data -------------------
 #keep only metadata with PER samples
 metadata <- metadata[grepl("PER", metadata$origin),]
 
@@ -69,11 +69,11 @@ rownames(metadata_filtered) <- gsub("\\-", ".", rownames(metadata_filtered))
 
 # -------------- TAXO Q0 -------------------
 # edit data for gdm function
-gdmTab.dis <- formatsitepair(bioData= tax_q0_beta_matrix,
+gdmTab.dis <- formatsitepair(biodata= tax_q0_beta_matrix,
                              bioFormat=3, #diss matrix
                              XColumn="longitude",
                              YColumn="latitude",
-                             predData= metadata_filtered,
+                             preddata= metadata_filtered,
                              siteColumn="site")
 
 # apply gdm function
@@ -87,11 +87,11 @@ plot(gdm.1, plot.layout=c(3,3))
 tax_q1_beta_matrix <- cbind(site, tax_q1_beta_matrix_per)
 
 # edit data for gdm function
-gdmTab.dis <- formatsitepair(bioData= tax_q1_beta_matrix,
+gdmTab.dis <- formatsitepair(biodata= tax_q1_beta_matrix,
                              bioFormat=3, #diss matrix
                              XColumn="longitude",
                              YColumn="latitude",
-                             predData= metadata_filtered,
+                             preddata= metadata_filtered,
                              siteColumn="site")
 
 # apply gdm function
@@ -106,11 +106,11 @@ plot(gdm.2, plot.layout=c(3,3))
 phylo_q0_beta_matrix <- cbind(site, phylo_q0_beta_matrix_per)
 
 # edit for gdm function
-gdmTab.dis <- formatsitepair(bioData= phylo_q0_beta_matrix,
+gdmTab.dis <- formatsitepair(biodata= phylo_q0_beta_matrix,
                              bioFormat=3, #diss matrix
                              XColumn="longitude",
                              YColumn="latitude",
-                             predData= metadata_filtered,
+                             preddata= metadata_filtered,
                              siteColumn="site")
 
 # apply gdm function
@@ -125,11 +125,11 @@ plot(gdm.3, plot.layout=c(3,3))
 phylo_q1_beta_matrix <- cbind(site, phylo_q1_beta_matrix_per)
 
 # edit for gdm function
-gdmTab.dis <- formatsitepair(bioData= phylo_q1_beta_matrix,
+gdmTab.dis <- formatsitepair(biodata= phylo_q1_beta_matrix,
                              bioFormat=3, #diss matrix
                              XColumn="longitude",
                              YColumn="latitude",
-                             predData= metadata_filtered,
+                             preddata= metadata_filtered,
                              siteColumn="site")
 
 # apply gdm function

@@ -2,7 +2,7 @@
 ## Statistical testing 
 
 # load beta_diss
-beta_diss <- readRDS(here::here("Data",
+beta_diss <- readRDS(here::here("data",
                                       "beta_diss.rds"))
 ### Statistics for intra species
 

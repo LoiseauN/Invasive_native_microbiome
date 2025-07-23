@@ -1,29 +1,26 @@
 #======== PROJECT COM2LIFE ========
 ## permanova on beta diversity matrix to see if there is lake effect or species effect
 
-#library
-library(dplyr)
-library(spaa)
-library(vegan)
+
 
 # load data 
-tax_q0_matrix_per <- readRDS(here::here("Data",
+tax_q0_matrix_per <- readRDS(here::here("data",
                                   "matrix_taxo_q0_per.rds"))
-tax_q0_matrix_lep <- readRDS(here::here("Data",
+tax_q0_matrix_lep <- readRDS(here::here("data",
                                         "matrix_taxo_q0_lep.rds"))
-tax_q1_matrix_per <- readRDS(here::here("Data",
+tax_q1_matrix_per <- readRDS(here::here("data",
                                   "matrix_taxo_q1_per.rds"))
-tax_q1_matrix_lep <- readRDS(here::here("Data",
+tax_q1_matrix_lep <- readRDS(here::here("data",
                                         "matrix_taxo_q1_lep.rds"))
-phylo_q0_matrix_per <- readRDS(here::here("Data",
+phylo_q0_matrix_per <- readRDS(here::here("data",
                                         "matrix_phylo_q0_per.rds"))
-phylo_q0_matrix_lep <- readRDS(here::here("Data",
+phylo_q0_matrix_lep <- readRDS(here::here("data",
                                           "matrix_phylo_q0_lep.rds"))
-phylo_q1_matrix_per <- readRDS(here::here("Data",
+phylo_q1_matrix_per <- readRDS(here::here("data",
                                           "matrix_phylo_q1_per.rds"))
-phylo_q1_matrix_lep <- readRDS(here::here("Data",
+phylo_q1_matrix_lep <- readRDS(here::here("data",
                                           "matrix_phylo_q1_lep.rds"))
-metadata <- readRDS(here::here("Data",
+metadata <- readRDS(here::here("data",
                                "metadata.rds"))
 
 # ===== PERMANOVA - LAKE EFFECT - PERCA FLUVIATILIS =====

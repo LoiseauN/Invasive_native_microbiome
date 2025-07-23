@@ -229,7 +229,7 @@ boxplot_diss_phylo_q0 <- cowplot::plot_grid(
   rel_heights = c(0.15, 20) 
 )
 
-path_to_my_object = here::here("Figures","hill", "CM_boxplot_diss_phylo_q0.png")
+path_to_my_object = here::here("figures","hill", "CM_boxplot_diss_phylo_q0.png")
 ggsave(filename = path_to_my_object, plot = boxplot_diss_phylo_q0, device = "png")
 
 
@@ -340,7 +340,7 @@ boxplot_diss_phylo_q1 <- cowplot::plot_grid(
   rel_heights = c(0.15, 20)  
 )
 
-path_to_my_object = here::here("Figures","hill", "CM_boxplot_diss_phylo_q1.png")
+path_to_my_object = here::here("figures","hill", "CM_boxplot_diss_phylo_q1.png")
 ggsave(filename = path_to_my_object, plot = boxplot_diss_phylo_q1, device = "png")
 
 
@@ -453,7 +453,7 @@ boxplot_diss_taxo_q0 <- cowplot::plot_grid(
   rel_heights = c(0.15, 20)  
 )
 
-path_to_my_object = here::here("Figures","hill", "CM_boxplot_diss_taxo_q0.png")
+path_to_my_object = here::here("figures","hill", "CM_boxplot_diss_taxo_q0.png")
 ggsave(filename = path_to_my_object, plot = boxplot_diss_taxo_q0, device = "png")
 
 
@@ -565,7 +565,7 @@ boxplot_diss_taxo_q1 <- cowplot::plot_grid(
   rel_heights = c(0.15, 20) 
 )
 
-path_to_my_object = here::here("Figures","hill", "CM_boxplot_diss_taxo_q1.png")
+path_to_my_object = here::here("figures","hill", "CM_boxplot_diss_taxo_q1.png")
 ggsave(filename = path_to_my_object, plot = boxplot_diss_taxo_q1, device = "png")
 
 
@@ -640,5 +640,5 @@ boxplot_diss_inter_sp <- cowplot::plot_grid(
   rel_heights = c(0.15, 20)  
 )
 
-path_to_my_object = here::here("Figures","hill", "CM_boxplot_diss_inter_sp.png")
+path_to_my_object = here::here("figures","hill", "CM_boxplot_diss_inter_sp.png")
 ggsave(filename = path_to_my_object, plot = boxplot_diss_inter_sp, device = "png")
