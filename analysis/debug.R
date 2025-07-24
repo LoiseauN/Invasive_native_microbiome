@@ -23,5 +23,8 @@
 
 #13. venn_diagram.R inutile?
 
+#Dossier Bash inutile?
+
+
 
 
