@@ -7,7 +7,10 @@
 #' @author Alice Navarro  \email{alice.navarro@@hotmail.fr},
 #'         Nicolas Loiseau, \email{nicolas.loiseau@@cnrs.fr},
 #'
+if (!requireNamespace("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
 
+BiocManager::install("microbiomeMarker")
 
 
 ## Parameters ----

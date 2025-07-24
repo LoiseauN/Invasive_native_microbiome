@@ -36,7 +36,7 @@ p_LDAsc <- p_LDAsc +
 # Retrieve graph data from p_LDAsc
 y_labs <- ggplot2::ggplot_build(p_LDAsc)$layout$panel_params[[1]]$y$get_labels()
 
-p_abd <- plot_abundance(mm_lefse, group = "origin") +
+p_abd <- microbiomeMarker::plot_abundance(mm_lefse, group = "origin") +
   ggplot2::scale_y_discrete(limits = y_labs) +
   ggplot2::scale_fill_manual(
     values = c("LEP" = "darkorange", "PER" = "#A90C38"),

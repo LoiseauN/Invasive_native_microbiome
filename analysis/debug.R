@@ -10,3 +10,15 @@
 #script 1.acp_env, Inutile?
 
 # 3.1.plot_alpha_diversity.R inutile?
+
+# 4.1.plot_beta_diversity.R inutile?
+
+#13. venn_diagram.R inutile?
+
+#12.LEFse_lda.R inutile?
+
+#11.0.ASVs_by_lakes.R inutile?
+
+#11.1.reads_percentage_species.R inutile?
+
+
