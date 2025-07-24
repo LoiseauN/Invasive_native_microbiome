@@ -60,3 +60,5 @@ map_idf <- leaflet() %>%
 
 # Display the map
 map_idf
+# Save the map as an png file
+ggsave(filename = here::here("figures", "FigSM1.png"), plot = map_idf, device = "png", width = 10, height = 8)

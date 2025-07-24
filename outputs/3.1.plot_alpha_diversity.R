@@ -3,7 +3,7 @@
 ## load the object and plot the alpha diversity
 
 #create a directory
-dir.create("figures/hill", recursive = TRUE)
+#dir.create("figures/hill", recursive = TRUE)
 
 # Load my physeq object 
 physeq_alpha <- readRDS(here::here("data",

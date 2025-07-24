@@ -120,11 +120,6 @@ results_gdm_lep <- ggplot2::ggplot(combined_data, ggplot2::aes(x = model, y = pe
 path_to_my_object = here::here("Figures","hill", "results_gdm_lep.png")
 ggplot2::ggsave(filename = path_to_my_object, plot = results_gdm_lep, device = "png")
 
-
-
-library(ggplot2)
-library(cowplot)
-
 # Créer le graphique pour plot_left sans légende
 plot_left <- results_gdm_per +
   theme(legend.position = "none")  # Ajuster les marges intérieures pour réduire l'espace autour du plot
