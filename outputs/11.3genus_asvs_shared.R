@@ -128,8 +128,8 @@ df_long <- df_long %>%
 
 # Agréger les abondances par genre et groupe
 df_genus_abundance <- df_long %>%
-  group_by(Genus) %>%
-  summarise(TotalAbundance = sum(Abundance, na.rm = TRUE)) %>%
+  dplyr::group_by(Genus) %>%
+  dplyr::summarise(TotalAbundance = sum(Abundance, na.rm = TRUE)) %>%
   ungroup()
 # Filtrer pour supprimer les genres NA
 df_genus_abundance <- df_genus_abundance %>%
