@@ -36,7 +36,12 @@ Imports:
     ape,
     hillR,
     gridExtra
-    devtools
+    devtools,
+    FactoMineR,
+    factoextra,
+    tibble
+
+
 
 
    
