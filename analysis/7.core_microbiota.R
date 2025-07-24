@@ -2,15 +2,6 @@
 ## Estimates beta diversity on core microbiota of indivduals.
 ## Delete ASVs that are in less than 10% of samples
 
-# Load libraries
-library(phyloseq)
-library(dplyr)
-library(tidyverse)
-library(hillR)
-library(ggpubr)
-library(ggplot2)
-library(cowplot)
-
 # load physeq object
 physeq_filtered <- readRDS(here::here("data",
                              "mon_objet_physeq_filtered.rds"))
@@ -59,18 +50,18 @@ phylo_q1_beta$beta_diss <- 1 - phylo_q1_beta$region_similarity
 
 ## supprimer les autres colonnes sur la beta garde que beta_diss
 phylo_q0_beta <- phylo_q0_beta %>%
-  select(-q, -PD_gamma, -PD_alpha, -PD_beta, -local_similarity, -region_similarity) %>%
-  rename(sample_b = site1, sample_a = site2, phylo_q0 = beta_diss)
+  dplyr::select(-q, -PD_gamma, -PD_alpha, -PD_beta, -local_similarity, -region_similarity) %>%
+  dplyr::rename(sample_b = site1, sample_a = site2, phylo_q0 = beta_diss)
 phylo_q1_beta <- phylo_q1_beta %>%
-  select(-q, -PD_gamma, -PD_alpha, -PD_beta, -local_similarity, -region_similarity) %>%
-  rename(sample_b = site1, sample_a = site2, phylo_q1 = beta_diss)
+  dplyr::select(-q, -PD_gamma, -PD_alpha, -PD_beta, -local_similarity, -region_similarity) %>%
+  dplyr::rename(sample_b = site1, sample_a = site2, phylo_q1 = beta_diss)
 
 tax_q0_beta <- tax_q0_beta %>%
-  select(-q, -TD_gamma, -TD_alpha, -TD_beta, -local_similarity, -region_similarity) %>%
-  rename(sample_b = site1, sample_a = site2, taxo_q0 = beta_diss)
+  dplyr::select(-q, -TD_gamma, -TD_alpha, -TD_beta, -local_similarity, -region_similarity) %>%
+  dplyr::rename(sample_b = site1, sample_a = site2, taxo_q0 = beta_diss)
 tax_q1_beta <- tax_q1_beta %>%
-  select(-q, -TD_gamma, -TD_alpha, -TD_beta, -local_similarity, -region_similarity) %>%
-  rename(sample_b = site1, sample_a = site2, taxo_q1 = beta_diss)
+  dplyr::select(-q, -TD_gamma, -TD_alpha, -TD_beta, -local_similarity, -region_similarity) %>%
+  dplyr::rename(sample_b = site1, sample_a = site2, taxo_q1 = beta_diss)
 
 beta_diss <- phylo_q0_beta %>%
   merge(phylo_q1_beta, by = c('sample_a', 'sample_b')) %>%

@@ -3,9 +3,6 @@
 ## First load the libraries. Do a correlation matrix to chosse environmeental variables 
 ##### Here, we choose 5 variables 
 
-#load library
-library(gridExtra)
-
 # Load metadata object
 metadata_alpha <- readRDS(here::here("data",
                                      "metadata_alpha.rds"))

@@ -3,9 +3,6 @@
 ## First load the libraries and object. 
 ##### 4 models GDM by species, here we modelise 5 environmental varibales for Perca fluviatilis
 
-# load libraries
-library(gdm)
-
 # Load objects
 physeq_per <- readRDS(here::here("data",
                                       "mon_objet_physeq_per.rds"))
@@ -69,11 +66,11 @@ rownames(metadata_filtered) <- gsub("\\-", ".", rownames(metadata_filtered))
 
 # -------------- TAXO Q0 -------------------
 # edit data for gdm function
-gdmTab.dis <- formatsitepair(biodata= tax_q0_beta_matrix,
+gdmTab.dis <- formatsitepair(bioData= tax_q0_beta_matrix,
                              bioFormat=3, #diss matrix
                              XColumn="longitude",
                              YColumn="latitude",
-                             preddata= metadata_filtered,
+                             predData= metadata_filtered,
                              siteColumn="site")
 
 # apply gdm function
@@ -87,12 +84,15 @@ plot(gdm.1, plot.layout=c(3,3))
 tax_q1_beta_matrix <- cbind(site, tax_q1_beta_matrix_per)
 
 # edit data for gdm function
-gdmTab.dis <- formatsitepair(biodata= tax_q1_beta_matrix,
+gdmTab.dis <- formatsitepair(bioData= tax_q1_beta_matrix,
                              bioFormat=3, #diss matrix
                              XColumn="longitude",
                              YColumn="latitude",
-                             preddata= metadata_filtered,
+                             predData= metadata_filtered,
                              siteColumn="site")
+
+
+
 
 # apply gdm function
 gdm.2 <- gdm(data=gdmTab.dis, geo=TRUE)
@@ -106,11 +106,11 @@ plot(gdm.2, plot.layout=c(3,3))
 phylo_q0_beta_matrix <- cbind(site, phylo_q0_beta_matrix_per)
 
 # edit for gdm function
-gdmTab.dis <- formatsitepair(biodata= phylo_q0_beta_matrix,
+gdmTab.dis <- formatsitepair(bioData= phylo_q0_beta_matrix,
                              bioFormat=3, #diss matrix
                              XColumn="longitude",
                              YColumn="latitude",
-                             preddata= metadata_filtered,
+                             predData= metadata_filtered,
                              siteColumn="site")
 
 # apply gdm function
@@ -125,11 +125,11 @@ plot(gdm.3, plot.layout=c(3,3))
 phylo_q1_beta_matrix <- cbind(site, phylo_q1_beta_matrix_per)
 
 # edit for gdm function
-gdmTab.dis <- formatsitepair(biodata= phylo_q1_beta_matrix,
+gdmTab.dis <- formatsitepair(bioData= phylo_q1_beta_matrix,
                              bioFormat=3, #diss matrix
                              XColumn="longitude",
                              YColumn="latitude",
-                             preddata= metadata_filtered,
+                             predData= metadata_filtered,
                              siteColumn="site")
 
 # apply gdm function

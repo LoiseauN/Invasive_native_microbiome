@@ -39,7 +39,10 @@ Imports:
     devtools,
     FactoMineR,
     factoextra,
-    tibble
+    tibble,
+    glmmTMB,
+    sjPlot,
+   gdm
 
 
 
