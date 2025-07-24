@@ -42,7 +42,9 @@ Imports:
     tibble,
     glmmTMB,
     sjPlot,
-   gdm
+    gdm,
+    igraph
+
 
 
 

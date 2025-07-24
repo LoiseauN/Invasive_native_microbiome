@@ -5,15 +5,15 @@ BiocManager::install('mixOmics')
 library(mixOmics)
 
 # load data
-physeq_per <- readRDS(here::here("Data",
+physeq_per <- readRDS(here::here("data",
                                  "mon_objet_physeq_per.rds"))
-physeq_lep <- readRDS(here::here("Data",
+physeq_lep <- readRDS(here::here("data",
                                       "mon_objet_physeq_lep.rds"))
-annotated_metabo_per <- readRDS(here::here("Data",
+annotated_metabo_per <- readRDS(here::here("data",
                                       "annotated_metabo_per.rds"))
-annotated_metabo_lep <- readRDS(here::here("Data",
+annotated_metabo_lep <- readRDS(here::here("data",
                                            "annotated_metabo_lep.rds"))
-sample_ID_conv <- readRDS(here::here("Data",
+sample_ID_conv <- readRDS(here::here("data",
                                            "sample_ID_conv.rds"))
 # otu_table
 otu_table_per <- as.data.frame(physeq_per@otu_table)
@@ -96,9 +96,6 @@ head(tax_lep, 10)
 # Remplacer les noms des colonnes dans la table filtrée par les labels de tax_lep
 colnames(otu_table_filtered) <- tax_lep[colnames(otu_table_filtered), "Label"]
 
-# Charger les packages nécessaires
-library(igraph)
-library(dplyr)
 
 # Calculer les corrélations entre les OTUs et les métabolites
 cor_matrix <- cor(otu_table_filtered, metabo_table_filtered)
@@ -116,7 +113,7 @@ cat("Nombre de connexions après filtrage:", nrow(cor_df_filtered), "\n")
 
 # Créer un graphe bipartite à partir du dataframe de corrélations filtrées
 bipartite_edges <- cor_df_filtered[, c("OTU", "Metabolite", "Correlation")]
-g <- graph_from_data_frame(bipartite_edges, directed = FALSE)
+g <- igraph::graph_from_data_frame(bipartite_edges, directed = FALSE)
 
 # Ajouter un attribut pour distinguer les types de nœuds (OTU ou Metabolite)
 V(g)$type <- bipartite.mapping(g)$type
