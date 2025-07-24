@@ -6,13 +6,6 @@
 #create a file 
 dir.create("outputs/hill", recursive = TRUE)
 
-#libraries
-library(hillR)
-library(ggplot2)
-library(ggpubr)
-library(gridExtra)
-library(dplyr)
-library(cowplot)
 
 # Load my physeq object 
 physeq_filtered <- readRDS(here::here("data",

@@ -2,16 +2,10 @@
 ## Estimates beta diversity based on hill numbers for metabolite data  
 ## First load the libraries and physeq_object. Calculates beta dveristy on phylogenetic (qo, q1) taxonomic (q0, q1)
 
-# load libraries 
-library(dplyr)
-library(spaa)
-library(hillR)
-library(ape)
-library(ggpubr)
 
 # ======= ALL METABO =======
 # load data
-all_metabo <- readRDS(here::here("Data",
+all_metabo <- readRDS(here::here("data",
                                       "all_metabo_filtered.rds"))
 # change with the right lakes name
 all_metabo <- all_metabo %>%
@@ -35,7 +29,7 @@ all_metabo <- all_metabo %>%
            gsub("CTL", "CRE", .))
 
 # Save
-path_to_my_object = here::here("Data","all_metabo_filtered.rds")
+path_to_my_object = here::here("data","all_metabo_filtered.rds")
 saveRDS(all_metabo, file = path_to_my_object)
 
 # Delete character columns 
@@ -60,17 +54,17 @@ tax_q1_beta$beta_diss <- 1 - tax_q1_beta$region_similarity
 
 ## keep only beta_diss
 tax_q0_beta <- tax_q0_beta %>%
-  select(-q, -TD_gamma, -TD_alpha, -TD_beta, -local_similarity, -region_similarity) %>%
-  rename(sample_b = site1, sample_a = site2, taxo_q0 = beta_diss)
+  dplyr::select(-q, -TD_gamma, -TD_alpha, -TD_beta, -local_similarity, -region_similarity) %>%
+  dplyr::rename(sample_b = site1, sample_a = site2, taxo_q0 = beta_diss)
 #save
-path_to_my_object = here::here("Data","tax_q0_beta_metabo.rds")
+path_to_my_object = here::here("data","tax_q0_beta_metabo.rds")
 saveRDS(tax_q0_beta, file = path_to_my_object)
 
 tax_q1_beta <- tax_q1_beta %>%
-  select(-q, -TD_gamma, -TD_alpha, -TD_beta, -local_similarity, -region_similarity) %>%
-  rename(sample_b = site1, sample_a = site2, taxo_q1 = beta_diss)
+  dplyr::select(-q, -TD_gamma, -TD_alpha, -TD_beta, -local_similarity, -region_similarity) %>%
+  dplyr::rename(sample_b = site1, sample_a = site2, taxo_q1 = beta_diss)
 #save
-path_to_my_object = here::here("Data","tax_q1_beta_metabo.rds")
+path_to_my_object = here::here("data","tax_q1_beta_metabo.rds")
 saveRDS(tax_q1_beta, file = path_to_my_object)
 
 # transform the dissimilarity indice in matrix
@@ -159,21 +153,15 @@ ggsave(filename = path_to_my_object, plot = pcoa_diss_all_metabo, device = "png"
 
 
 # ===== PCoA FOR PERCA AND LEPOMIS ON DIFFERENT PLOT =====
-library(hillR)
-library(phyloseq)
-library(ggplot2)
-library(ggpubr)
-library(vegan)
-
 #create object for Perca  
 metabo_per <- all_metabo[grepl("_P", rownames(all_metabo)), ]
 # Save my phyloseq object 
-path_to_my_object = here::here("Data","metabo_per.rds")
+path_to_my_object = here::here("data","metabo_per.rds")
 saveRDS(metabo_per, file = path_to_my_object)
 #cretae objetc for Lepomis
 metabo_lep <- all_metabo[grepl("_G", rownames(all_metabo)), ]
 # Save my phyloseq object 
-path_to_my_object = here::here("Data","metabo_lep.rds")
+path_to_my_object = here::here("data","metabo_lep.rds")
 saveRDS(metabo_lep, file = path_to_my_object)
 
 # Function to generate dissimilarity matrices and plot PCoA
@@ -187,12 +175,12 @@ generate_and_plot <- function(comm, species_name, prefix) {
   
   # Keep only beta_diss
   tax_q0_beta <- tax_q0_beta %>%
-    select(-q, -TD_gamma, -TD_alpha, -TD_beta, -local_similarity, -region_similarity) %>%
-    rename(sample_b = site1, sample_a = site2, taxo_q0 = beta_diss)
+    dplyr::select(-q, -TD_gamma, -TD_alpha, -TD_beta, -local_similarity, -region_similarity) %>%
+    dplyr::rename(sample_b = site1, sample_a = site2, taxo_q0 = beta_diss)
   
   tax_q1_beta <- tax_q1_beta %>%
-    select(-q, -TD_gamma, -TD_alpha, -TD_beta, -local_similarity, -region_similarity) %>%
-    rename(sample_b = site1, sample_a = site2, taxo_q1 = beta_diss)
+    dplyr::select(-q, -TD_gamma, -TD_alpha, -TD_beta, -local_similarity, -region_similarity) %>%
+    dplyr::rename(sample_b = site1, sample_a = site2, taxo_q1 = beta_diss)
   
   # Transform dissimilarity indices into matrix
   taxo_q0_beta <- as.data.frame(tax_q0_beta)
@@ -293,7 +281,7 @@ ggsave(filename = path_to_my_object, plot = pcoa_diss_all_metabo_sp, device = "p
 
 # ======= ANNOTATED METABO =======
 # load data
-annotated_metabo <- readRDS(here::here("Data",
+annotated_metabo <- readRDS(here::here("data",
                                  "metabo_annotated_filtered.rds"))
 # change with the right lakes name
 annotated_metabo <- annotated_metabo %>%
@@ -309,7 +297,7 @@ rownames(annotated_metabo) <- annotated_metabo$new_rowname
 annotated_metabo <- annotated_metabo[, -which(names(annotated_metabo) == "new_rowname")]
 
 # Save
-path_to_my_object = here::here("Data","annotated_metabo_filtered.rds")
+path_to_my_object = here::here("data","annotated_metabo_filtered.rds")
 saveRDS(annotated_metabo, file = path_to_my_object)
 
 # Convert all remaining columns to numeric
@@ -330,17 +318,17 @@ tax_q1_beta$beta_diss <- 1 - tax_q1_beta$region_similarity
 
 ## keep only beta_diss
 tax_q0_beta <- tax_q0_beta %>%
-  select(-q, -TD_gamma, -TD_alpha, -TD_beta, -local_similarity, -region_similarity) %>%
-  rename(sample_b = site1, sample_a = site2, taxo_q0 = beta_diss)
+  dplyr::select(-q, -TD_gamma, -TD_alpha, -TD_beta, -local_similarity, -region_similarity) %>%
+  dplyr::rename(sample_b = site1, sample_a = site2, taxo_q0 = beta_diss)
 #save
-path_to_my_object = here::here("Data","tax_q0_beta_annotated_metabo.rds")
+path_to_my_object = here::here("data","tax_q0_beta_annotated_metabo.rds")
 saveRDS(tax_q0_beta, file = path_to_my_object)
 
 tax_q1_beta <- tax_q1_beta %>%
-  select(-q, -TD_gamma, -TD_alpha, -TD_beta, -local_similarity, -region_similarity) %>%
-  rename(sample_b = site1, sample_a = site2, taxo_q1 = beta_diss)
+  dplyr::select(-q, -TD_gamma, -TD_alpha, -TD_beta, -local_similarity, -region_similarity) %>%
+  dplyr::rename(sample_b = site1, sample_a = site2, taxo_q1 = beta_diss)
 #save
-path_to_my_object = here::here("Data","tax_q1_beta_annotated_metabo.rds")
+path_to_my_object = here::here("data","tax_q1_beta_annotated_metabo.rds")
 saveRDS(tax_q1_beta, file = path_to_my_object)
 
 # transform the dissimilarity indice in matrix
@@ -438,12 +426,12 @@ library(vegan)
 #create object for Perca  
 metabo_per <- annotated_metabo[grepl("_P", rownames(annotated_metabo)), ]
 # Save my phyloseq object 
-path_to_my_object = here::here("Data","annotated_metabo_per.rds")
+path_to_my_object = here::here("data","annotated_metabo_per.rds")
 saveRDS(metabo_per, file = path_to_my_object)
 #cretae objetc for Lepomis
 metabo_lep <- annotated_metabo[grepl("_G", rownames(annotated_metabo)), ]
 # Save my phyloseq object 
-path_to_my_object = here::here("Data","annotated_metabo_lep.rds")
+path_to_my_object = here::here("data","annotated_metabo_lep.rds")
 saveRDS(metabo_lep, file = path_to_my_object)
 
 # Function to generate dissimilarity matrices and plot PCoA
@@ -457,12 +445,12 @@ generate_and_plot <- function(comm, species_name, prefix) {
   
   # Keep only beta_diss
   tax_q0_beta <- tax_q0_beta %>%
-    select(-q, -TD_gamma, -TD_alpha, -TD_beta, -local_similarity, -region_similarity) %>%
-    rename(sample_b = site1, sample_a = site2, taxo_q0 = beta_diss)
+    dplyr::select(-q, -TD_gamma, -TD_alpha, -TD_beta, -local_similarity, -region_similarity) %>%
+    dplyr::rename(sample_b = site1, sample_a = site2, taxo_q0 = beta_diss)
   
   tax_q1_beta <- tax_q1_beta %>%
-    select(-q, -TD_gamma, -TD_alpha, -TD_beta, -local_similarity, -region_similarity) %>%
-    rename(sample_b = site1, sample_a = site2, taxo_q1 = beta_diss)
+    dplyr::select(-q, -TD_gamma, -TD_alpha, -TD_beta, -local_similarity, -region_similarity) %>%
+    dplyr::rename(sample_b = site1, sample_a = site2, taxo_q1 = beta_diss)
   
   # Transform dissimilarity indices into matrix
   taxo_q0_beta <- as.data.frame(tax_q0_beta)

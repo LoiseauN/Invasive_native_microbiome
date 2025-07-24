@@ -84,16 +84,16 @@ sp_melt$Phylum <- as.character(sp_melt$Phylum) # convert into character
 sumtot_sp <- sp_melt %>%
   dplyr::group_by(Phylum) %>%
   dplyr::summarize(sum = sum(Abundance)) %>%
-  filter(Phylum %in% top_phyla$Phylum) %>%
-  filter(!(Phylum %in% c("", " p__uncultured", NA, "Unknown Phylum")))
+  dplyr::filter(Phylum %in% top_phyla$Phylum) %>%
+  dplyr::filter(!(Phylum %in% c("", " p__uncultured", NA, "Unknown Phylum")))
 
 sp_melt$Phylum[!(sp_melt$Phylum %in% sumtot_sp$Phylum)] <- "Other"
 
 sp_melt$totalAbundance <- sum(sp_melt$Abundance)
 
 data_sp_mod <- sp_melt %>%
-  group_by(Phylum, Sample) %>%
-  summarise(Abundance = sum(Abundance)) %>%
+  dplyr::group_by(Phylum, Sample) %>%
+  dplyr::summarise(Abundance = sum(Abundance)) %>%
   dplyr::distinct()
 
 # Specify order of samples

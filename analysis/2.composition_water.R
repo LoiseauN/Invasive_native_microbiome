@@ -1,11 +1,6 @@
 #======== PROJECT COM2LIFE ========
 ## Stackbarplots for water, help of L.Ezzat 
 
-# Load libraries
-library(phyloseq)
-library(phyloseqCompanion)
-library(tidyverse)
-
 # Load physeq object
 physeq <- readRDS(here::here("data", "mon_objet_physeq_13_02.rds"))
 
@@ -64,7 +59,7 @@ if ("samples" %in% colnames(sample_data)) {
 # Update sample_data in phyloseq object
 sample_data(physeq_lake) <- sample_data
 
-path_to_my_object = here::here("Data", "physeq_lake.rds")
+path_to_my_object = here::here("data", "physeq_lake.rds")
 saveRDS(physeq_lake, file = path_to_my_object)
 
 #========== PHYLUM LEVEL =======
@@ -84,19 +79,19 @@ lake_melt$Phylum <- as.character(lake_melt$Phylum)
 
 # Keep 6 most abundant phyla
 sumtot_lake <- lake_melt %>%
-  group_by(Phylum) %>%
-  summarize(sum = sum(Abundance)) %>%
-  filter(Phylum %in% top_phyla$Phylum) %>%
-  filter(!(Phylum %in% c("", " p__uncultured", NA, "Unknown Phylum")))
+  dplyr::group_by(Phylum) %>%
+  dplyr::summarize(sum = sum(Abundance)) %>%
+  dplyr::filter(Phylum %in% top_phyla$Phylum) %>%
+  dplyr::filter(!(Phylum %in% c("", " p__uncultured", NA, "Unknown Phylum")))
 
 lake_melt$Phylum[!(lake_melt$Phylum %in% sumtot_lake$Phylum)] <- "Other"
 
 lake_melt$totalAbundance <- sum(lake_melt$Abundance)
 
 data_lake_mod <- lake_melt %>%
-  group_by(Phylum, Sample) %>%
-  summarise(Abundance = sum(Abundance)) %>%
-  distinct()
+  dplyr::group_by(Phylum, Sample) %>%
+  dplyr::summarise(Abundance = sum(Abundance)) %>%
+  dplyr::distinct()
 
 # Specify order of lakes
 data_sp_mod$Sample <- factor(data_sp_mod$Sample, levels = c("CERL", "CERS", "CRE", "VSS","LGP", "CSM"))

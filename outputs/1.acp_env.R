@@ -1,12 +1,9 @@
 #======== PROJECT COM2LIFE ========
 ## ACP on lakes and environmental variables
 
-# load libraries
-library(FactoMineR)
-library(factoextra)
-library(dplyr)
 
-param_table_july2021 <- read.csv(here::here("Data",
+
+param_table_july2021 <- read.csv(here::here("data",
                                  "param_table_july2021.csv"), sep = ";")
 
 # clean param_table
@@ -42,5 +39,5 @@ factoextra::fviz_pca_var(acp_result, col.var = "cos2", pointsize = 2)
 biplot <- factoextra::fviz_pca_biplot(acp_result, pointsize = 2, col.var = "contrib")
 biplot
 
-path_to_my_object = here::here("Figures", "acp_env.png")
+path_to_my_object = here::here("figures", "acp_env.png")
 ggplot2::ggsave(filename = path_to_my_object, plot = biplot, device = "png")

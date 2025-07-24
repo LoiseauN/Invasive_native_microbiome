@@ -2,13 +2,8 @@
 ## Estimates beta diversity based on hill numbers 
 ## First load the libraries and physeq_object. Calculates beta dveristy on phylogenetic (qo, q1) taxonomic (q0, q1)
 
-#Load libraries
-library(dplyr)
-library(tidyverse) 
-library(hillR)
-
 # Load my physeq filtered object 
-physeq_filtered <- readRDS(here::here("Data",
+physeq_filtered <- readRDS(here::here("data",
                                       "mon_objet_physeq_filtered.rds"))
 
 metadata <- physeq_filtered@sam_data %>%
@@ -17,7 +12,7 @@ metadata <- physeq_filtered@sam_data %>%
   as.data.frame() 
 
 # Save
-path_to_my_object = here::here("Data","metadata.rds")
+path_to_my_object = here::here("data","metadata.rds")
 saveRDS(metadata, file = path_to_my_object)
 
 #'@taxonomic_diversity
@@ -48,30 +43,30 @@ phylo_q1_beta$beta_diss <- 1 - phylo_q1_beta$region_similarity
 ## keep only beta_diss
 phylo_q0_beta <- phylo_q0_beta %>%
   select(-q, -PD_gamma, -PD_alpha, -PD_beta, -local_similarity, -region_similarity) %>%
-  rename(sample_b = site1, sample_a = site2, phylo_q0 = beta_diss)
+  dplyr::rename(sample_b = site1, sample_a = site2, phylo_q0 = beta_diss)
 #save 
-path_to_my_object = here::here("Data","phylo_q0_beta.rds")
+path_to_my_object = here::here("data","phylo_q0_beta.rds")
 saveRDS(phylo_q0_beta, file = path_to_my_object)
 
 phylo_q1_beta <- phylo_q1_beta %>%
   select(-q, -PD_gamma, -PD_alpha, -PD_beta, -local_similarity, -region_similarity) %>%
-  rename(sample_b = site1, sample_a = site2, phylo_q1 = beta_diss)
+  dplyr::rename(sample_b = site1, sample_a = site2, phylo_q1 = beta_diss)
 #save
-path_to_my_object = here::here("Data","phylo_q1_beta.rds")
+path_to_my_object = here::here("data","phylo_q1_beta.rds")
 saveRDS(phylo_q1_beta, file = path_to_my_object)
         
 tax_q0_beta <- tax_q0_beta %>%
   select(-q, -TD_gamma, -TD_alpha, -TD_beta, -local_similarity, -region_similarity) %>%
-  rename(sample_b = site1, sample_a = site2, taxo_q0 = beta_diss)
+  dplyr::rename(sample_b = site1, sample_a = site2, taxo_q0 = beta_diss)
 #save
-path_to_my_object = here::here("Data","tax_q0_beta.rds")
+path_to_my_object = here::here("data","tax_q0_beta.rds")
 saveRDS(tax_q0_beta, file = path_to_my_object)
 
 tax_q1_beta <- tax_q1_beta %>%
   select(-q, -TD_gamma, -TD_alpha, -TD_beta, -local_similarity, -region_similarity) %>%
-  rename(sample_b = site1, sample_a = site2, taxo_q1 = beta_diss)
+  dplyr::rename(sample_b = site1, sample_a = site2, taxo_q1 = beta_diss)
 #save
-path_to_my_object = here::here("Data","tax_q1_beta.rds")
+path_to_my_object = here::here("data","tax_q1_beta.rds")
 saveRDS(tax_q1_beta, file = path_to_my_object)
 
 #Create dataframe for analysis of dissimilarity
@@ -115,5 +110,5 @@ for (i in names(beta_diss)[!(names(beta_diss) %in% c("taxo_q0", "taxo_q1", "phyl
   beta_diss[, i] <- factor(beta_diss[,i], levels = sort(unique(beta_diss[,i])))
 }
 
-path_to_my_object = here::here("Data","beta_diss.rds")
+path_to_my_object = here::here("data","beta_diss.rds")
 saveRDS(beta_diss, file = path_to_my_object)
