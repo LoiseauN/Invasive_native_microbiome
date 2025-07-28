@@ -37,3 +37,6 @@ source(here::here("analyses", "9.model_gdm_beta_per.R"))
 source(here::here("analyses", "10.model_gdm_beta_lep.R"))
 
 
+#------------------Running figures------------------------
+source(here::here("analyses", "figure4.R"))
+source(here::here("analyses", "figure5.R"))

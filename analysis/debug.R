@@ -25,6 +25,13 @@
 
 #Dossier Bash inutile?
 
+#creation phyloseque : organisation
+
+# nom figure et supprimer figure non utilisée
+
+# données brute à mettre dans data
+
+# script inutiles à supprimer
 
 
 
