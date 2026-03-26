@@ -1,5 +1,4 @@
 #======== PROJECT COM2LIFE ========
-## This script is a continuation of the reads_percentage_species script 
 ## plot the ASVs shared between water and species based on chlorohyll a level of each make
 
 # import data
@@ -43,14 +42,13 @@ percentage_shared_chla <- ggplot2::ggplot(combined_df, ggplot2::aes(x = Chla_med
   ggplot2::geom_line(linewidth = 0.7) +
   ggplot2::geom_text(hjust = 0.5, vjust = -0.5) +  
   ggplot2::labs(
-       x = "Concentration of chlorophyll a (µg.l-1)",
-       y = "Total percentage of reads corresponding to ASVs shared with water",
-       color = "Species") +
+    x = "Chla (µg.L-1)",
+    y = "Total percentage of reads corresponding to ASVs shared with water",
+    color = "Species") +
   ggplot2::scale_color_manual(values = c("Lepomis gibbosus" = "darkorange", "Perca fluviatilis" =  "#A90C38"),
                               labels = c(expression(italic("Lepomis gibbosus")), expression(italic("Perca fluviatilis")))) +  # Définir les couleurs pour chaque type d'espèce
   ggplot2::theme_minimal() +
-  theme(legend.text = element_text(size = 10.5))
+  ggplot2::theme(legend.text = ggplot2::element_text(size = 10.5))
 
-
-path_to_my_object = here::here("Figures", "percentage_shared_chla.png")
+path_to_my_object = here::here("figures", "figure5.png")
 ggplot2::ggsave(filename = path_to_my_object, plot = percentage_shared_chla, device = "png")

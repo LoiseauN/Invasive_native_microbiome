@@ -60,7 +60,7 @@ results_gdm_per <- ggplot2::ggplot(combined_data, ggplot2::aes(x = model, y = pe
   ggplot2::labs(x = "Models", y = "Percentage (%)", fill = "Predictors") +
   ggplot2::scale_fill_brewer(palette = "Set3")
 
-path_to_my_object = here::here("Figures","hill", "results_gdm_per.png")
+path_to_my_object = here::here("figures","figure4A.png")
 ggplot2::ggsave(filename = path_to_my_object, plot = results_gdm_per, device = "png")
 
 #===== LEPOMIS GIBBOSUS =======
@@ -117,30 +117,27 @@ results_gdm_lep <- ggplot2::ggplot(combined_data, ggplot2::aes(x = model, y = pe
   ggplot2::scale_fill_brewer(palette = "Set3")
 
 # Save
-path_to_my_object = here::here("Figures","hill", "results_gdm_lep.png")
+path_to_my_object = here::here("figures","figure4B.png")
 ggplot2::ggsave(filename = path_to_my_object, plot = results_gdm_lep, device = "png")
 
-# Créer le graphique pour plot_left sans légende
+# Create plot
 plot_left <- results_gdm_per +
-  theme(legend.position = "none")  # Ajuster les marges intérieures pour réduire l'espace autour du plot
+  ggplot2::theme(legend.position = "none")  
 
-# Créer le graphique pour plot_right avec légende et ajustements
 plot_right <- results_gdm_lep +
-  theme(axis.title.y = element_blank())  # Ajuster les marges intérieures pour réduire l'espace autour du plot
+  ggplot2::theme(axis.title.y = ggplot2::element_blank())  
 
-# Créer le plot combiné avec les étiquettes
-combined_plot <- plot_grid(plot_left, plot_right, labels = c("A", "B"), ncol = 2, align = "hv")
+combined_plot <- cowplot::plot_grid(plot_left, plot_right, labels = c("A", "B"), ncol = 2, align = "hv")
 
-# Ajouter une légende à droite sans empiéter sur les plots
+# Add legend
 combined_plot_gdm <- cowplot::plot_grid(
   combined_plot,
   cowplot::draw_plot_label(label = "Legend", size = 15, hjust = 0, vjust = 1),  # Positionner la légende à droite
   ncol = 2,
-  rel_widths = c(1, 0.1),  # Ajuster la largeur de la légende
-  align = "v"  # Aligner verticalement la légende avec les plots
+  rel_widths = c(1, 0.1),  
+  align = "v"  
 )
 
 # Save
-path_to_my_object = here::here("Figures","hill", "combined_plot_gdm.png")
+path_to_my_object = here::here("figures","figure4.png")
 ggplot2::ggsave(filename = path_to_my_object, plot = combined_plot_gdm, device = "png")
-
