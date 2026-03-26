@@ -4,20 +4,14 @@ Research Compendium of the project Invasive and native lake fish species display
 ## Content
 This repository is structured as follow:
 
-- :file_folder: &nbsp;[**data/**](https://github.com/LoiseauN/Invasive_native_microbiome/tree/master/data):
+- :file_folder: &nbsp;[**Data/**](https://github.com/LoiseauN/Invasive_native_microbiome/tree/master/data):
 contains all data required to reproduce analyses and figures
 
 - :file_folder: &nbsp;[**R/**](https://github.com/LoiseauN/Invasive_native_microbiome/tree/master/R):
 contains R functions developed especially for this project
 
-- :file_folder: &nbsp;[**man/**](https://github.com/LoiseauN/Invasive_native_microbiome/tree/master/man):
-contains documentation of R functions
-
 - :file_folder: &nbsp;[**analysis/**](https://github.com/LoiseauN/Invasive_native_microbiome/tree/master/analysis):
 contains R scripts to reproduce all the analyses/figures
-
-- :file_folder: &nbsp;[**outputs/**](https://github.com/LoiseauN/Invasive_native_microbiome/tree/master/outputs):
-contains all the results stored in the `.Rdata` format
 
 - :file_folder: &nbsp;[**figures/**](https://github.com/LoiseauN/Invasive_native_microbiome/tree/master/figures):
 contains all the figures stored in pdf format
