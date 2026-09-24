@@ -1,6 +1,61 @@
 #======== PROJECT COM2LIFE ========
 ## Statistical testing 
 
+#======== PROJECT COM2LIFE ========
+## Statistical testing: intra-species beta-diversity among regions
+
+beta_diss <- readRDS(here::here("data", "beta_diss.rds"))
+
+species_vec <- c("LEP", "PER")
+metrics     <- c("taxo_q0", "taxo_q1", "phylo_q0", "phylo_q1")
+
+# Build the value / region vectors for one species and one metric
+get_intra <- function(sp, metric) {
+  d <- beta_diss[beta_diss$reg_lev == "intra_region" &
+                   (beta_diss$species_a == sp | beta_diss$species_b == sp), ]
+  data.frame(value  = c(d[[metric]], d[[metric]]),
+             region = factor(c(d$region_a, d$region_b)))
+}
+
+# ---- 1. Kruskal-Wallis for every species x metric ----
+kw_tab <- expand.grid(species = species_vec, metric = metrics,
+                      stringsAsFactors = FALSE)
+
+kw_tab[, c("chi2", "df", "p_raw")] <- t(mapply(function(sp, m) {
+  d <- get_intra(sp, m)
+  k <- kruskal.test(value ~ region, data = d)
+  c(k$statistic, k$parameter, k$p.value)
+}, kw_tab$species, kw_tab$metric))
+
+# ---- 2. FDR correction ACROSS all KW tests ----
+kw_tab$p_fdr <- p.adjust(kw_tab$p_raw, method = "BH")
+print(kw_tab)
+
+# ---- 3. Post hoc Dunn only for KW tests passing FDR < 0.05 ----
+sig <- kw_tab[kw_tab$p_fdr < 0.05, ]
+
+posthoc <- lapply(seq_len(nrow(sig)), function(i) {
+  d <- get_intra(sig$species[i], sig$metric[i])
+  res <- dunn.test::dunn.test(d$value, d$region, method = "bonferroni",
+                              kw = FALSE, table = FALSE)
+  data.frame(species = sig$species[i], metric = sig$metric[i],
+             comparison = res$comparisons, Z = res$Z,
+             p_adj_bonf = res$P.adjusted)
+})
+posthoc <- do.call(rbind, posthoc)
+print(posthoc)
+
+
+
+#OLD VERSION
+
+
+
+
+
+
+
+
 # load beta_diss
 beta_diss <- readRDS(here::here("data",
                                 "beta_diss.rds"))
