@@ -7,6 +7,8 @@
 metadata_alpha <- readRDS(here::here("data",
                                      "metadata_alpha.rds"))
 
+
+metadata_alpha <- metadata_alpha %>% rename(species = "species")
 # ====== CORRELATION MATRIX =======
 cor_metadata <- cor(metadata_alpha[,c("Temperature_median", "Oxygen_median", "pH_median", "Chla_median", "Salinity_median", "TPC", "TPN",
                                       "TPC.TPN", "NH4", "PO4", "NO3_N02")], method = "spearman")
@@ -49,7 +51,7 @@ car::vif(glm( taxo_q0 ~ Temperature_median + Chla_median + Salinity_median + pH_
 # 4 models for each Hill indices (taxo_q, taxo_q, phylo_q and phylo_q)
 
 # MODEL TAXO_Q0
-model_glm_taxo_q0 <- glmmTMB::glmmTMB( taxo_q0 ~ Temperature_median + Chla_median + Salinity_median + pH_median + Oxygen_median +  origin + (1|lake) ,
+model_glm_taxo_q0 <- glmmTMB::glmmTMB( taxo_q0 ~ Temperature_median + Chla_median + Salinity_median + pH_median + Oxygen_median +  species + (1|lake) ,
                                        data = metadata_alpha,
                                        family = gaussian )
 # Residuals plots
@@ -58,14 +60,14 @@ plot_2 <- sjPlot::plot_model(model_glm_taxo_q0, show.values = TRUE, type = "pred
 plot_3 <- sjPlot::plot_model(model_glm_taxo_q0, show.values = TRUE, type = "pred", terms = c("Salinity_median"))
 plot_4 <-sjPlot::plot_model(model_glm_taxo_q0, show.values = TRUE, type = "pred", terms = c("pH_median"))
 plot_5 <-sjPlot::plot_model(model_glm_taxo_q0, show.values = TRUE, type = "pred", terms = c("Oxygen_median"))
-plot_6 <-sjPlot::plot_model(model_glm_taxo_q0, show.values = TRUE, type = "pred", terms = c("origin"))
+plot_6 <-sjPlot::plot_model(model_glm_taxo_q0, show.values = TRUE, type = "pred", terms = c("species"))
 # put all the plot on same page 
 gridExtra::grid.arrange(plot_1, plot_2, plot_3, plot_4, plot_5, plot_6)
 #results of model
 sjPlot::tab_model(model_glm_taxo_q0, show.aic = TRUE)
 
 # MODEL TAXO_Q1
-model_glm_taxo_q1 <- glmmTMB::glmmTMB( taxo_q1 ~ Temperature_median + Chla_median + Salinity_median + pH_median+ Oxygen_median +  origin + (1|lake),
+model_glm_taxo_q1 <- glmmTMB::glmmTMB( taxo_q1 ~ Temperature_median + Chla_median + Salinity_median + pH_median+ Oxygen_median +  species + (1|lake),
                                    data = metadata_alpha,
                                    family = gaussian )
 # Residuals plots
@@ -74,7 +76,7 @@ plot_2 <- sjPlot::plot_model(model_glm_taxo_q1, show.values = TRUE, type = "pred
 plot_3 <- sjPlot::plot_model(model_glm_taxo_q1, show.values = TRUE, type = "pred", terms = c("Salinity_median"))
 plot_4 <-sjPlot::plot_model(model_glm_taxo_q1, show.values = TRUE, type = "pred", terms = c("pH_median"))
 plot_5 <-sjPlot::plot_model(model_glm_taxo_q1, show.values = TRUE, type = "pred", terms = c("Oxygen_median"))
-plot_6 <-sjPlot::plot_model(model_glm_taxo_q1, show.values = TRUE, type = "pred", terms = c("origin"))
+plot_6 <-sjPlot::plot_model(model_glm_taxo_q1, show.values = TRUE, type = "pred", terms = c("species"))
 # put all the plot on same page 
 gridExtra::grid.arrange(plot_1, plot_2, plot_3, plot_4, plot_5, plot_6)
 
@@ -82,7 +84,7 @@ gridExtra::grid.arrange(plot_1, plot_2, plot_3, plot_4, plot_5, plot_6)
 sjPlot::tab_model(model_glm_taxo_q1, show.aic = TRUE)
 
 # MODEL PHYLO_Q0
-model_glm_phylo_q0 <- glmmTMB::glmmTMB( phylo_q0 ~ Temperature_median + Chla_median + Salinity_median + pH_median + Oxygen_median +  origin + (1|lake),
+model_glm_phylo_q0 <- glmmTMB::glmmTMB(phylo_q0 ~ Temperature_median + Chla_median + Salinity_median + pH_median + Oxygen_median +  species + (1|lake),
                                     data = metadata_alpha,
                                     family = gaussian )
 # Residuals plots
@@ -91,7 +93,7 @@ plot_2 <- sjPlot::plot_model(model_glm_phylo_q0, show.values = TRUE, type = "pre
 plot_3 <- sjPlot::plot_model(model_glm_phylo_q0, show.values = TRUE, type = "pred", terms = c("Salinity_median"))
 plot_4 <-sjPlot::plot_model(model_glm_phylo_q0, show.values = TRUE, type = "pred", terms = c("pH_median"))
 plot_5 <-sjPlot::plot_model(model_glm_phylo_q0, show.values = TRUE, type = "pred", terms = c("Oxygen_median"))
-plot_6 <-sjPlot::plot_model(model_glm_phylo_q0, show.values = TRUE, type = "pred", terms = c("origin"))
+plot_6 <-sjPlot::plot_model(model_glm_phylo_q0, show.values = TRUE, type = "pred", terms = c("species"))
 # put all the plot on same page 
 gridExtra::grid.arrange(plot_1, plot_2, plot_3, plot_4, plot_5, plot_6)
 
@@ -99,7 +101,7 @@ gridExtra::grid.arrange(plot_1, plot_2, plot_3, plot_4, plot_5, plot_6)
 sjPlot::tab_model(model_glm_phylo_q0, show.aic = TRUE)
 
 # MODEL PHYLO_Q1
-model_glm_phylo_q1 <- glmmTMB::glmmTMB( phylo_q1 ~ Temperature_median + Chla_median + Salinity_median + pH_median+ Oxygen_median +  origin + (1|lake),
+model_glm_phylo_q1 <- glmmTMB::glmmTMB( phylo_q1 ~ Temperature_median + Chla_median + Salinity_median + pH_median+ Oxygen_median +  species + (1|lake),
                                     data = metadata_alpha,
                                     family = gaussian )
 # Residuals plots
@@ -108,7 +110,7 @@ plot_2 <- sjPlot::plot_model(model_glm_phylo_q1, show.values = TRUE, type = "pre
 plot_3 <- sjPlot::plot_model(model_glm_phylo_q1, show.values = TRUE, type = "pred", terms = c("Salinity_median"))
 plot_4 <-sjPlot::plot_model(model_glm_phylo_q1, show.values = TRUE, type = "pred", terms = c("pH_median"))
 plot_5 <-sjPlot::plot_model(model_glm_phylo_q1, show.values = TRUE, type = "pred", terms = c("Oxygen_median"))
-plot_6 <-sjPlot::plot_model(model_glm_phylo_q1, show.values = TRUE, type = "pred", terms = c("origin"))
+plot_6 <-sjPlot::plot_model(model_glm_phylo_q1, show.values = TRUE, type = "pred", terms = c("species"))
 # put all the plot on same page 
 gridExtra::grid.arrange(plot_1, plot_2, plot_3, plot_4, plot_5, plot_6)
 

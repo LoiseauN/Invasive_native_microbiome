@@ -23,7 +23,7 @@ region_factor_intra <- factor(region_lep_intra)
 kruskal_test_result_lep_intra <- kruskal.test(taxo_q0_lep_intra ~ region_factor_intra)
 print(kruskal_test_result_lep_intra)
 
-dunn_test_result <- dunn.test(taxo_q0_lep_intra, region_factor_intra, method = "bonferroni")
+dunn_test_result <- dunn.test::dunn.test(taxo_q0_lep_intra, region_factor_intra, method = "bonferroni")
 print(dunn_test_result)
 
 ## Taxo Q1
@@ -73,7 +73,7 @@ region_per_intra <- c(per_intra_region_data$region_a, per_intra_region_data$regi
 # Trasnform region into factor
 region_factor_intra <- factor(region_per_intra)
 
-# Test Kruskal-Wallis to compare groups of region for LEp 
+# Test Kruskal-Wallis to compare groups of region for PER 
 kruskal_test_result_per_intra <- kruskal.test(taxo_q0_per_intra ~ region_factor_intra)
 print(kruskal_test_result_per_intra)
 
@@ -84,7 +84,7 @@ print(dunn_test_result)
 # Select taxo_q1 and intra region
 taxo_q1_per_intra <- c(per_intra_region_data$taxo_q1, per_intra_region_data$taxo_q1)
 
-# Test Kruskal-Wallis to compare groups of region for LEp 
+# Test Kruskal-Wallis to compare groups of region for PER 
 kruskal_test_result_per_intra <- kruskal.test(taxo_q1_per_intra ~ region_factor_intra)
 print(kruskal_test_result_per_intra)
 
@@ -95,7 +95,7 @@ print(dunn_test_result)
 # Select phylo_q0 and intra region
 phylo_q0_per_intra <- c(per_intra_region_data$phylo_q0, per_intra_region_data$phylo_q0)
 
-# Test Kruskal-Wallis to compare groups of region for LEp 
+# Test Kruskal-Wallis to compare groups of region for PER 
 kruskal_test_result_per_intra <- kruskal.test(phylo_q0_per_intra ~ region_factor_intra)
 print(kruskal_test_result_per_intra)
 
@@ -106,9 +106,12 @@ print(dunn_test_result)
 # Select phylo_q1 and intra region
 phylo_q1_per_intra <- c(per_intra_region_data$phylo_q1, per_intra_region_data$phylo_q1)
 
-# Test Kruskal-Wallis to compare groups of region for LEp 
+# Test Kruskal-Wallis to compare groups of region for PER 
 kruskal_test_result_per_intra <- kruskal.test(phylo_q1_per_intra ~ region_factor_intra)
 print(kruskal_test_result_per_intra)
 
 dunn_test_result <- dunn.test::dunn.test(phylo_q1_per_intra, region_factor_intra, method = "bonferroni")
 print(dunn_test_result)
+
+
+
