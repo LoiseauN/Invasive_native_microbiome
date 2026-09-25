@@ -64,16 +64,26 @@ for (i in 1:nrow(phylo_q1_beta)) {
 }
 
 ## =========== Make the PCoA ==================== ##
-lake_colors <- c(
-  "CSM" = "#608F3D",
-  "CERL" = "#41AEBD",
-  "CERS" = "#97E9D5",
-  "CRE" = "#F4DE3A",
-  "LGP" = "#A2CF49",
-  "VSS" = "#FCB11C"
-)
+# Form more CHLa to less CSM LGP VSS CRE CERS CERL
+pal <- harrypotter::hp(n = 6, option = "DracoMalfoy")
 
-plot_pcoa <- function(matrix_dist, title) {
+lake_colors <- c(
+  CSM ="#00332AFF",
+  LGP = "#035236FF",
+  VSS ="#227548FF",
+  CRE ="#60A360FF",
+  CERS = "#C5D163FF",
+  CERL = "#F2F26DFF")
+
+  #lake_colors <- c(
+#  "CSM" = "#608F3D",
+#  "CERL" = "#41AEBD",
+#  "CERS" = "#97E9D5",
+#  "CRE" = "#F4DE3A",
+#  "LGP" = "#A2CF49",
+#  "VSS" = "#FCB11C"
+#)
+plot_pcoa <- function(matrix_dist, title, lake_order) {
   sample_names <- rownames(matrix_dist)
   lake_names <- substr(sample_names, 1, 4)
   lake_names[lake_names == "CRE."] <- "CRE"
@@ -81,25 +91,22 @@ plot_pcoa <- function(matrix_dist, title) {
   lake_names[lake_names == "LGP."] <- "LGP"
   lake_names[lake_names == "CSM."] <- "CSM"
   
+  # Order lake_names according to the chosen level order
+  lake_names <- factor(lake_names, levels = lake_order)
+  
   # Perform PCoA
   pcoa_result <- ape::pcoa(matrix_dist)
-  
-  # Assign lake_names to pcoa_result$lake_names
   pcoa_result$lake_names <- lake_names
-  
-  # Extract PCoA coordinates
   pcoa_coordinates <- pcoa_result$vectors
   
-  # Define point shapes based on sample names
   point_shapes <- ifelse(grepl("PER", rownames(matrix_dist)), 16, 1)
   
-  # Create the plot using ggplot2
   plot <- ggplot2::ggplot(data = pcoa_coordinates, ggplot2::aes(x = Axis.1, y = Axis.2)) +
     ggplot2::geom_point(ggplot2::aes(color = lake_names, shape = factor(point_shapes)), size = 3) +
     ggplot2::xlab("Dim 1") +
     ggplot2::ylab("Dim 2") +
     ggplot2::labs(title = title) +
-    ggplot2::scale_color_manual(values = lake_colors, name = "Lakes") +  
+    ggplot2::scale_color_manual(values = lake_colors, name = "Lakes", limits = lake_order) +  
     ggplot2::scale_shape_manual(values = c(16, 1),
                                 labels = c("Perca fluviatilis", "Lepomis gibbosus")) +  
     ggplot2::guides(shape = ggplot2::guide_legend(title = "Species",     
@@ -115,15 +122,14 @@ plot_pcoa <- function(matrix_dist, title) {
   return(plot)
 }
 
-# Generate PCoA plots for taxonomic q0 and q1 dissimilarities
-plot_taxo_q0_pcoa <- plot_pcoa(tax_q0_beta_matrix, "Taxonomic dissimilarity (q0)")
-plot_taxo_q1_pcoa <- plot_pcoa(tax_q1_beta_matrix, "Taxonomic dissimilarity (q1)")
+lake_order <- c("CSM", "LGP", "VSS", "CRE", "CERS", "CERL")  # your chosen order
 
-# Generate PCoA plots for phylogenetic q0 and q1 dissimilarities
-plot_phylo_q0_pcoa <- plot_pcoa(phylo_q0_beta_matrix, "Phylogenetic dissimilarity (q0)")
-plot_phylo_q1_pcoa <- plot_pcoa(phylo_q1_beta_matrix, "Phylogenetic dissimilarity (q1)")
+plot_taxo_q0_pcoa   <- plot_pcoa(tax_q0_beta_matrix,   "Taxonomic dissimilarity (q0)",   lake_order)
+plot_taxo_q1_pcoa   <- plot_pcoa(tax_q1_beta_matrix,   "Taxonomic dissimilarity (q1)",   lake_order)
+plot_phylo_q0_pcoa  <- plot_pcoa(phylo_q0_beta_matrix, "Phylogenetic dissimilarity (q0)",lake_order)
+plot_phylo_q1_pcoa  <- plot_pcoa(phylo_q1_beta_matrix, "Phylogenetic dissimilarity (q1)",lake_order)
 
-# Combine plots
+#Combine plots
 pcoa_diss <- ggpubr::ggarrange(plot_taxo_q0_pcoa, plot_taxo_q1_pcoa, plot_phylo_q0_pcoa, plot_phylo_q1_pcoa,
                                labels = c("A", "B", "C", "D"),
                                ncol = 2, nrow = 3, 

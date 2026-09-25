@@ -14,16 +14,25 @@ species_labels <- c("LEP" = "Lepomis gibbosus", "PER" = "Perca fluviatilis")
 sp_level <- "intra_species"
 reg_levels <- c("intra_region", "inter_region")
 reg_comb_var <- "reg_comb"
-my_palette <- c("#41AEBD","#97E9D5","#F4DE3A", "#FCB11C","#A2CF49","#608F3D") 
-region_colors <- c(
-  "CSM" = "#608F3D",
-  "CERL" = "#41AEBD",
-  "CERS" = "#97E9D5",
-  "CRE" = "#F4DE3A",
-  "LGP" = "#A2CF49",
-  "VSS" = "#FCB11C"
-)
-custom_order <- c("CERL", "CERS", "CRE", "VSS", "LGP", "CSM")
+
+my_palette <- c("#00332AFF","#035236FF", "#227548FF", "#60A360FF", "#C5D163FF", "#F2F26DFF")
+region_colors <- c(CSM ="#00332AFF",
+LGP = "#035236FF",
+VSS ="#227548FF",
+CRE ="#60A360FF",
+CERS = "#C5D163FF",
+CERL = "#F2F26DFF")
+#my_palette <- c("#41AEBD","#97E9D5","#F4DE3A", "#FCB11C","#A2CF49","#608F3D") 
+#region_colors <- c(
+#  "CSM" = "#608F3D",
+#  "CERL" = "#41AEBD",
+#  "CERS" = "#97E9D5",
+#  "CRE" = "#F4DE3A",
+#  "LGP" = "#A2CF49",
+#  "VSS" = "#FCB11C"
+#)
+#custom_order <- c("CERL", "CERS", "CRE", "VSS", "LGP", "CSM")
+custom_order <- c("CSM", "LGP", "VSS", "CRE", "CERS", "CERL")
 
 # Function to generate phylogenetic diversity plots for different species and regions
 diversity_plots <- function(data, species_list, species_labels, indice_var, sp_level, reg_levels, reg_comb_var, custom_order, my_palette, region_colors) {
@@ -92,20 +101,21 @@ diversity_plots <- function(data, species_list, species_labels, indice_var, sp_l
   )
   
   # Combine plot inter region
-  inter_row <- cowplot::plot_grid(
-    plot_list_inter[[species_list[1]]], plot_list_inter[[species_list[2]]],
-    labels = c("C", "D"),
-    ncol = 2
-  )
+  # inter_row <- cowplot::plot_grid(
+  #   plot_list_inter[[species_list[1]]], plot_list_inter[[species_list[2]]],
+  #   labels = c("C", "D"),
+  #   ncol = 2
+  # )
   
-  combined_plots <- cowplot::plot_grid(
-    intra_row,
-    inter_row,
-    ncol = 1,
-    rel_heights = c(1, 1) 
-  )
+   combined_plots <- cowplot::plot_grid(
+     intra_row,
+  #   inter_row,
+     ncol = 1,
+     rel_heights = c(1, 1) 
+   )
   
   return(combined_plots)
+  
 }
 
 
@@ -126,15 +136,29 @@ filtered_data5$region_a <- factor(filtered_data5$region_a, levels = custom_order
 h <- ggplot2::ggplot(filtered_data5, ggplot2::aes(x = region_a, y = as.numeric(as.character(taxo_q1)))) +
   ggplot2::geom_boxplot(fill = my_palette, color = "black") +
   ggplot2::labs(x = NULL, y = NULL) +
-  ggplot2::ggtitle("Taxonomic dissimilarity (q1)") +
+  #ggplot2::ggtitle("Taxonomic dissimilarity (q1)") +
   ggplot2::theme_minimal() + 
   ggplot2::theme(plot.title = ggplot2::element_text(size = 10, face = "bold"),
                  panel.border = ggplot2::element_blank(),
                  pantel.grid.major = ggplot2::element_blank(),
                  panel.grid.minor = ggplot2::element_blank(),
-                 axis.line = ggplot2::element_line(colour = "black")) +
+                 axis.line = ggplot2::element_line(colour = "black"),
+                 ) +
   ggplot2::scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, by = 0.2)) +
-  ggplot2::scale_color_manual(values = my_palette)
+  ggplot2::scale_color_manual(values = my_palette)+
+  ggplot2::labs(y = bquote(bold("Between lakes"))) 
 
 path_to_my_object = here::here("figures","figure3C.png")
 ggplot2::ggsave(filename = path_to_my_object, plot = h, device = "png")
+
+
+combined_plots <- cowplot::plot_grid(
+  boxplot_diss_taxo_q1,
+  h,
+  ncol = 1,
+  rel_heights = c(1, 1) 
+)
+path_to_my_object = here::here("figures","figure3_all.png")
+ggplot2::ggsave(filename = path_to_my_object, plot = combined_plots, device = "png")
+
+

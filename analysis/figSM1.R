@@ -18,12 +18,12 @@ points <- data.frame(
 
 # Define colors for each point name
 couleurs <- c(
-  "CHA_W1" = "#608F3D", "CHA_W2" = "#608F3D", "CHA_W3" = "#608F3D",
-  "CRJ_W1" = "#41AEBD","CRJ_W2" = "#41AEBD", "CRJ_W3" = "#41AEBD",
-  "CRJ1_W1" = "#97E9D5", "CRJ1_W2" = "#97E9D5",  "CRJ1_W3" = "#97E9D5",
-  "CTL_W1" = "#F4DE3A", "CTL_W2" = "#F4DE3A", "CTL_W3" = "#F4DE3A",
-  "GDP_W1" = "#A2CF49", "GDP_W2" = "#A2CF49", "GDP_W3" = "#A2CF49",
-  "VER_W1" = "#FCB11C", "VER_W2" = "#FCB11C", "VER_W3" = "#FCB11C"
+  "CHA_W1" = "#00332AFF", "CHA_W2" = "#00332AFF", "CHA_W3" = "#00332AFF",
+  "CRJ_W1" = "#F2F26DFF","CRJ_W2" = "#F2F26DFF", "CRJ_W3" = "#F2F26DFF",
+  "CRJ1_W1" = "#C5D163FF", "CRJ1_W2" = "#C5D163FF",  "CRJ1_W3" = "#C5D163FF",
+  "CTL_W1" = "#60A360FF", "CTL_W2" = "#60A360FF", "CTL_W3" = "#60A360FF",
+  "GDP_W1" = "#035236FF", "GDP_W2" = "#035236FF", "GDP_W3" = "#035236FF",
+  "VER_W1" = "#227548FF", "VER_W2" = "#227548FF", "VER_W3" = "#227548FF"
 )
 
 # Create a color palette

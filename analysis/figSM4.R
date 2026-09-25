@@ -9,6 +9,10 @@ library(ggplot2)
 library(ggpubr)
 library(vegan)
 
+
+read(annotated_metabo_per.rds
+
+
 #create object for Perca  
 metabo_per <- annotated_metabo[grepl("_P", rownames(annotated_metabo)), ]
 # Save my phyloseq object 
