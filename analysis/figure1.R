@@ -122,8 +122,19 @@ color_palette <- c(
 )
 
 # create barplot
-barplot_for_sp <- ggplot2::ggplot(data = data_sp_mod, ggplot2::aes(x = Sample, y = Abundance, fill = Phylum)) +
+
+
+data_sp_mod$lake <- sub("\\_.*", "", data_sp_mod$Sample )
+data_sp_mod$species <- sub('.*_', '', data_sp_mod$Sample)
+
+data_sp_mod$species <-  gsub("PER", "Perca fluviatilis", data_sp_mod$species)
+data_sp_mod$species <-  gsub("LEP", "Lepomis gibbosus", data_sp_mod$species)
+
+custom_order <- c("CSM", "LGP", "VSS", "CRE", "CERS", "CERL")
+
+barplot_for_sp <- ggplot2::ggplot(data = data_sp_mod, ggplot2::aes(x = lake, y = Abundance, fill = Phylum)) +
   ggplot2::geom_bar(stat = "identity", position = "stack") +
+  ggplot2::scale_x_discrete(limits = custom_order) +   
   ggplot2::scale_fill_manual(values = color_palette) +
   ggplot2::theme_bw() +
   ggplot2::labs(y = "Relative Abundance") +
@@ -138,7 +149,8 @@ barplot_for_sp <- ggplot2::ggplot(data = data_sp_mod, ggplot2::aes(x = Sample, y
   ggplot2::theme(panel.border = ggplot2::element_blank(),
         panel.grid.major = ggplot2::element_blank(),
         panel.grid.minor = ggplot2::element_blank(),
-        axis.line = ggplot2::element_line(colour = "black"))
+        axis.line = ggplot2::element_line(colour = "black"))+
+  facet_wrap(vars(species))
 
 barplot_for_sp
 

@@ -1,64 +1,90 @@
-#### Create a map with the package Leaflet ####
+#### Map without API or tiles: ggplot2 + sf + rnaturalearth + ggrepel ####
 
+library(ggplot2)
+library(sf)
+library(ggspatial)
+library(rnaturalearth)
+library(dplyr)
+library(ggrepel)
 
-# Create the data frame
+# Data
 points <- data.frame(
-  nom = c("VER_W1", "VER_W2", "VER_W3", "CRJ_W1", "CRJ_W2", "CRJ_W3", 
-          "GDP_W1", "GDP_W2", "GDP_W3",
-          "CHA_W1", "CHA_W2", "CHA_W3", "CTL_W1", "CTL_W2", "CTL_W3", "CRJ1_W1", "CRJ1_W2", "CRJ1_W3"),
-  lat = c(48.9922, 48.9933, 48.9933, 49.0308, 49.0317, 49.0296, 48.3733, 48.3719, 48.3753,
-          48.8633, 48.8631, 48.8628, 48.775, 48.7744, 48.7772, 49.0261, 49.0247, 49.0247),
-  long = c(1.9664, 1.9683, 1.9706, 2.0556, 2.0528, 2.0533, 2.8992, 2.8994, 2.8983,
-           2.5967, 2.5975, 2.6003, 2.4497, 2.45, 2.4514, 2.0492, 2.0461, 2.0444),
-  trophie = c("hypereutrophe", "hypereutrophe", "hypereutrophe", "eutrophe", "eutrophe", "eutrophe", 
-              "eutrophe", "eutrophe", "eutrophe", "hypereutrophe", "hypereutrophe", "hypereutrophe",
-              "eutrophe", "eutrophe", "eutrophe",
-              "eutrophe", "eutrophe", "eutrophe")
+  nom = c("VER", "CRJ1", "GDP", "CHA", "CTL", "CRJ2"),
+  lat = c(48.9922, 49.0308, 48.3733, 48.8633, 48.775, 49.0261),
+  long = c(1.9664, 2.0556, 2.8992, 2.5967, 2.4497, 2.0492),
+  trophie = c("hypereutrophe", "eutrophe", "eutrophe",
+              "hypereutrophe", "eutrophe", "eutrophe")
 )
 
-# Define colors for each point name
 couleurs <- c(
-  "CHA_W1" = "#00332AFF", "CHA_W2" = "#00332AFF", "CHA_W3" = "#00332AFF",
-  "CRJ_W1" = "#F2F26DFF","CRJ_W2" = "#F2F26DFF", "CRJ_W3" = "#F2F26DFF",
-  "CRJ1_W1" = "#C5D163FF", "CRJ1_W2" = "#C5D163FF",  "CRJ1_W3" = "#C5D163FF",
-  "CTL_W1" = "#60A360FF", "CTL_W2" = "#60A360FF", "CTL_W3" = "#60A360FF",
-  "GDP_W1" = "#035236FF", "GDP_W2" = "#035236FF", "GDP_W3" = "#035236FF",
-  "VER_W1" = "#227548FF", "VER_W2" = "#227548FF", "VER_W3" = "#227548FF"
+  "CHA"  = "#00332A",
+  "CRJ1" = "#F2F26D",
+  "CRJ2" = "#C5D163",
+  "CTL"  = "#60A360",
+  "GDP"  = "#035236",
+  "VER"  = "#227548"
 )
 
-# Create a color palette
-palette_couleurs <- leaflet::colorFactor(
-  palette = couleurs,
-  domain = names(couleurs)
+names_lakes <- c(
+  "CHA"  = "Champs-sur-Marne (CSL)",
+  "CRJ1" = "Cergy Large (CERL)",
+  "CRJ2" = "Cergy Small (CERS)",
+  "CTL"  = "Créteil (CTL)",
+  "GDP"  = "La Grande-Paroisse (LGP)",
+  "VER"  = "Verneuil-sur-Seine (VSS)"
 )
 
-# Create the map with a clean background
-map_idf <- leaflet::leaflet() %>%
-  leaflet::addTiles(
-    urlTemplate = "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
-    options = leaflet::providerTileOptions(noWrap = TRUE, minZoom = 9, maxZoom = 12, continuousWorld = TRUE),
-    attribution = NULL
-  ) %>%
-  leaflet::setView(lng = 2.35, lat = 48.85, zoom = 10) %>%  # Center the map on Paris
-  leaflet::addCircleMarkers(
-    data = points, 
-    lng = ~long, 
-    lat = ~lat, 
-    color = ~palette_couleurs(nom), 
-    stroke = FALSE, 
-    fillOpacity = 0.8
-  ) %>%
-  leaflet::addScaleBar(
-    position = "bottomright",   # Positioning the scale bar at the bottom right
-    options = leaflet::scaleBarOptions(
-      maxWidth = 100,           # Maximum width of the scale bar
-      metric = TRUE,            # Display in kilometers
-      imperial = FALSE,         # Do not display in miles
-      updateWhenIdle = TRUE     # Update the scale bar when the map view is idle
-    )
-  )# Add colored markers based on point names
+# Lakes (sf) with labels
+points_sf <- st_as_sf(points, coords = c("long", "lat"), crs = 4326) |>
+  mutate(label = names_lakes[nom])
 
-# Display the map
+# Paris (city centre)
+paris_sf <- st_as_sf(
+  data.frame(label = "Paris", long = 2.3522, lat = 48.8566),
+  coords = c("long", "lat"), crs = 4326
+)
+
+# All labels together so ggrepel avoids overlaps between them
+labels_sf <- bind_rows(
+  points_sf |> select(label),
+  paris_sf  |> select(label)
+) |>
+  mutate(is_paris = label == "Paris")
+
+# Department outlines (local data, no API)
+departements <- ne_states(country = "France", returnclass = "sf")
+
+idf <- departements |>
+  filter(name %in% c("Paris", "Seine-et-Marne", "Yvelines", "Essonne",
+                     "Hauts-de-Seine", "Seine-Saint-Denis",
+                     "Val-de-Marne", "Val-d'Oise"))
+
+# Map
+map_idf <- ggplot() +
+  geom_sf(data = departements, fill = "grey95", color = "grey80", linewidth = 0.2) +
+  geom_sf(data = idf, fill = "white", color = "grey50", linewidth = 0.3) +
+  geom_sf(data = points_sf, aes(color = nom), size = 4, alpha = 1) +
+  geom_sf(data = paris_sf, shape = 8, size = 4, color = "black", stroke = 1.2) +
+  geom_text_repel(
+    data = labels_sf,
+    aes(label = label, geometry = geometry,
+        fontface = ifelse(is_paris, "bold", "plain")),
+    stat = "sf_coordinates",
+    size = 3.5,
+    min.segment.length = 0,
+    segment.color = "grey40",
+    box.padding = 0.6,
+    point.padding = 0.4,
+    seed = 1
+  ) +
+  scale_color_manual(values = couleurs) +
+  annotation_scale(location = "br", width_hint = 0.2) +
+  coord_sf(xlim = c(1.4, 3.6), ylim = c(48.1, 49.3), expand = FALSE) +
+  theme_void() +
+  theme(legend.position = "none",
+        panel.background = element_rect(fill = "#EAF1F5", color = NA))
+
 map_idf
-# Save the map as an png file
-htmlwidgets::saveWidget(map_idf, file = here::here("figures", "figSM1.html"))
+
+ggsave(here::here("figures", "figSM1.png"),
+       plot = map_idf, width = 7, height = 6, dpi = 300)
