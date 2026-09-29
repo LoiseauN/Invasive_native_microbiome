@@ -1,0 +1,17 @@
+"response","test","p_value","pass"
+"taxo_q0","KS uniformity",0.635185449822408,TRUE
+"taxo_q0","Dispersion",0.912,TRUE
+"taxo_q0","Outliers",1,TRUE
+"taxo_q0","RE normality (Shapiro)",0.480293970312801,TRUE
+"taxo_q1","KS uniformity",0.234911586756412,TRUE
+"taxo_q1","Dispersion",0.85,TRUE
+"taxo_q1","Outliers",1,TRUE
+"taxo_q1","RE normality (Shapiro)",0.53678317035784,TRUE
+"phylo_q0","KS uniformity",0.22462337509724,TRUE
+"phylo_q0","Dispersion",0.798,TRUE
+"phylo_q0","Outliers",1,TRUE
+"phylo_q0","RE normality (Shapiro)",0.0605776772996442,TRUE
+"phylo_q1","KS uniformity",0.000337806666260193,FALSE
+"phylo_q1","Dispersion",0.912,TRUE
+"phylo_q1","Outliers",0.208638245830673,TRUE
+"phylo_q1","RE normality (Shapiro)",0.53820658588151,TRUE

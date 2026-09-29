@@ -78,7 +78,18 @@ gdmTab.dis <- gdm::formatsitepair(bioData= tax_q0_beta_matrix,
 gdm.1 <- gdm::gdm(data=gdmTab.dis, geo=TRUE)
 
 length(gdm.1$predictors) # get ideal of number of panels
-plot(gdm.1, plot.layout=c(3,3))
+
+
+png(here::here("figures","gdm_q0_taxo.png"), width = 1600, height = 1800, res = 300)
+
+par(oma = c(0, 0, 3, 0))
+plot(gdm.1, plot.layout = c(3, 3))
+mtext("GDM, Taxonomic dissimilarity q0", side = 3, outer = TRUE,
+      line = 0.5, cex = 1.5, font = 2)
+
+dev.off()
+
+
 
 # -------------- TAXO Q1 -------------------
 # Add the 'site' column to the distance matrix
@@ -99,7 +110,14 @@ gdmTab.dis <- gdm::formatsitepair(bioData= tax_q1_beta_matrix,
 gdm.2 <- gdm::gdm(data=gdmTab.dis, geo=TRUE)
 
 length(gdm.2$predictors) # get ideal of number of panels
-plot(gdm.2, plot.layout=c(3,3))
+png(here::here("figures","gdm_q1_taxo.png"), width = 1600, height = 1800, res = 300)
+
+par(oma = c(0, 0, 3, 0))
+plot(gdm.2, plot.layout = c(3, 3))
+mtext("GDM, Taxonomic dissimilarity q1", side = 3, outer = TRUE,
+      line = 0.5, cex = 1.5, font = 2)
+
+dev.off()
 
 
 # -------------- PHYLO Q0 -------------------
@@ -118,7 +136,14 @@ gdmTab.dis <- gdm::formatsitepair(bioData= phylo_q0_beta_matrix,
 gdm.3 <- gdm::gdm(data=gdmTab.dis, geo=TRUE)
 
 length(gdm.3$predictors) # get ideal of number of panels
-plot(gdm.3, plot.layout=c(3,3))
+png(here::here("figures","gdm_q0_phylo.png"), width = 1600, height = 1800, res = 300)
+
+par(oma = c(0, 0, 3, 0))
+plot(gdm.3, plot.layout = c(3, 3))
+mtext("GDM, Phylogenetic dissimilarity q0", side = 3, outer = TRUE,
+      line = 0.5, cex = 1.5, font = 2)
+
+dev.off()
 
 
 # -------------- PHYLO Q1 -------------------
@@ -137,7 +162,14 @@ gdmTab.dis <- gdm::formatsitepair(bioData= phylo_q1_beta_matrix,
 gdm.4 <- gdm::gdm(data=gdmTab.dis, geo=TRUE)
 
 length(gdm.4$predictors) # get ideal of number of panels
-plot(gdm.4, plot.layout=c(3,3))
+png(here::here("figures","gdm_q1_phylo.png"), width = 1600, height = 1800, res = 300)
+
+par(oma = c(0, 0, 3, 0))
+plot(gdm.4, plot.layout = c(3, 3))
+mtext("GDM, Phylogenetic dissimilarity q1", side = 3, outer = TRUE,
+      line = 0.5, cex = 1.5, font = 2)
+
+dev.off()
 
 #============ LEPOMIS GIBBOSUS =======
 # Load objects
