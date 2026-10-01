@@ -68,7 +68,7 @@ sample_data(physeq_filtered) <- sample_data
 
 #Save
 path_to_my_object = here::here("Data","mon_objet_physeq_filtered.rds")
-saveRDS(physeq_filtered, file = path_to_my_object)
+#saveRDS(physeq_filtered, file = path_to_my_object)
 
 metadata <- phyloseqCompanion::sample.data.frame(physeq_filtered)
 
@@ -132,25 +132,34 @@ data_sp_mod$species <-  gsub("LEP", "Lepomis gibbosus", data_sp_mod$species)
 
 custom_order <- c("CSM", "LGP", "VSS", "CRE", "CERS", "CERL")
 
-barplot_for_sp <- ggplot2::ggplot(data = data_sp_mod, ggplot2::aes(x = lake, y = Abundance, fill = Phylum)) +
+species_order <- c("Perca fluviatilis", "Lepomis gibbosus")
+
+data_sp_mod$species <- factor(data_sp_mod$species, levels = species_order)
+
+
+barplot_for_sp <- ggplot2::ggplot(data = data_sp_mod,
+                                  ggplot2::aes(x = lake, y = Abundance, fill = Phylum)) +
   ggplot2::geom_bar(stat = "identity", position = "stack") +
-  ggplot2::scale_x_discrete(limits = custom_order) +   
+  ggplot2::scale_x_discrete(limits = custom_order) +
   ggplot2::scale_fill_manual(values = color_palette) +
   ggplot2::theme_bw() +
   ggplot2::labs(y = "Relative Abundance") +
   ggplot2::theme(
-    axis.title.x = ggplot2::element_text(size = 12),     
-    axis.title.y = ggplot2::element_text(size = 12),     
-    axis.text.x = ggplot2::element_text(size = 10, angle = 45, hjust = 1), 
-    axis.text.y = ggplot2::element_text(size = 10),      
-    legend.title = ggplot2::element_text(size = 14),     
-    legend.text = ggplot2::element_text(size = 12)       
+    axis.title.x = ggplot2::element_text(size = 12),
+    axis.title.y = ggplot2::element_text(size = 12),
+    axis.text.x  = ggplot2::element_text(size = 10, angle = 45, hjust = 1),
+    axis.text.y  = ggplot2::element_text(size = 10),
+    legend.title = ggplot2::element_text(size = 14),
+    legend.text  = ggplot2::element_text(size = 12),
+    panel.border     = ggplot2::element_blank(),
+    panel.grid.major = ggplot2::element_blank(),
+    panel.grid.minor = ggplot2::element_blank(),
+    axis.line        = ggplot2::element_line(colour = "black"),
+    strip.text       = ggplot2::element_text(face = "italic", size = 11)  # italic species names
   ) +
-  ggplot2::theme(panel.border = ggplot2::element_blank(),
-        panel.grid.major = ggplot2::element_blank(),
-        panel.grid.minor = ggplot2::element_blank(),
-        axis.line = ggplot2::element_line(colour = "black"))+
-  facet_wrap(vars(species))
+  ggplot2::facet_wrap(ggplot2::vars(species))
+
+
 
 barplot_for_sp
 

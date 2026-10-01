@@ -54,7 +54,7 @@ diversity_plots <- function(data, species_list, species_labels, indice_var, sp_l
       ggplot2::labs(x = NULL, y = NULL) +
       ggplot2::ggtitle(species_labels[species]) +
       ggplot2::theme_minimal() + 
-      ggplot2::theme(plot.title = ggplot2::element_text(size = 12.5, face = "bold", hjust = 0.5),
+      ggplot2::theme(plot.title = ggplot2::element_text(size = 12.5, face = "italic", hjust = 0.5),
                      axis.text.x = ggplot2::element_text(size = 11, angle = 45, vjust = 0.5),
                      axis.text.y = ggplot2::element_text(size = 11),
                      panel.border = ggplot2::element_blank(),
@@ -77,7 +77,7 @@ diversity_plots <- function(data, species_list, species_labels, indice_var, sp_l
       ggplot2::labs(x = NULL, y = NULL) +
       ggplot2::ggtitle(species_labels[species]) +
       ggplot2::theme_minimal() +
-      ggplot2::theme(plot.title = ggplot2::element_text(size = 12.5, face = "bold", hjust = 0.5),
+      ggplot2::theme(plot.title = ggplot2::element_text(size = 12.5, face = "italic", hjust = 0.5),
                      axis.text.x = ggplot2::element_text(size = 11, angle = 45, vjust = 0.5),
                      axis.text.y = ggplot2::element_text(size = 11),
                      panel.border = ggplot2::element_blank(),
@@ -95,7 +95,7 @@ diversity_plots <- function(data, species_list, species_labels, indice_var, sp_l
   
   # Combined plot intra region
   intra_row <- cowplot::plot_grid(
-    plot_list_intra[[species_list[1]]], plot_list_intra[[species_list[2]]],
+    plot_list_intra[[species_list[2]]], plot_list_intra[[species_list[1]]],
     labels = c("A", "B"),
     ncol = 2
   )
@@ -138,7 +138,7 @@ h <- ggplot2::ggplot(filtered_data5, ggplot2::aes(x = region_a, y = as.numeric(a
   ggplot2::labs(x = NULL, y = NULL) +
   #ggplot2::ggtitle("Taxonomic dissimilarity (q1)") +
   ggplot2::theme_minimal() + 
-  ggplot2::theme(plot.title = ggplot2::element_text(size = 10, face = "bold"),
+  ggplot2::theme(plot.title = ggplot2::element_text(size = 10, face = "bold", hjust = 0.5),
                  panel.border = ggplot2::element_blank(),
                  pantel.grid.major = ggplot2::element_blank(),
                  panel.grid.minor = ggplot2::element_blank(),
