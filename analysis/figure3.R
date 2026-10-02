@@ -156,7 +156,8 @@ combined_plots <- cowplot::plot_grid(
   boxplot_diss_taxo_q1,
   h,
   ncol = 1,
-  rel_heights = c(1, 1) 
+  rel_heights = c(1, 1), 
+  labels = c("A", "C")
 )
 path_to_my_object = here::here("figures","figure3_all.png")
 ggplot2::ggsave(filename = path_to_my_object, plot = combined_plots, device = "png")

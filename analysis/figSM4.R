@@ -57,6 +57,7 @@ plot_pcoa <- function(matrix_dist, title) {
     ggplot2::labs(title = title) +
     ggplot2::scale_color_manual(values = lake_colors, name = "Lakes", drop = FALSE) +
     ggplot2::theme(
+      plot.title = ggplot2::element_text(face = "italic"),
       legend.text = ggplot2::element_text(size = 10.5),
       panel.border = ggplot2::element_blank(),
       panel.grid.major = ggplot2::element_blank(),

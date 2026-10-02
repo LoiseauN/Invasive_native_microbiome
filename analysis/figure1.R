@@ -277,7 +277,7 @@ barplot_genus <- ggplot(all_tab, aes(x = lake, y = Abundance, fill = Genus)) +
     axis.text.x  = element_text(size = 10, angle = 45, hjust = 1),
     axis.text.y  = element_text(size = 10),
     legend.title = element_text(size = 14),
-    legend.text  = element_text(size = 12),
+    legend.text = element_text(size = 12, face = "italic"),
     legend.position = "right",
     strip.text   = element_text(size = 12, face = "italic"),
     strip.background = element_blank(),
